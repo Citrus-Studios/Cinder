@@ -9,7 +9,6 @@ use crate::vulkan::functions::vkCreateInstance;
 
 use super::application_info::ApplicationInfoBuilder;
 
-
 pub struct Instance {
     pub(crate) instance: VkInstance,
 }
