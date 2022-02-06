@@ -1,4 +1,4 @@
-use std::ptr;
+use std::{ptr, ffi::CString};
 
 use mira::vulkan::{VkInstanceCreateInfo, VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO};
 
@@ -8,20 +8,16 @@ pub struct InstanceCreateInfo<'a, T, U> {
     pub pNext: Option<T>,
     pub flags: u32,
     pub pApplicationInfo: Option<&'a ApplicationInfo<'a, U>>,
-    pub enabledLayerCount: u32,
-    pub ppEnabledLayerNames: Option<&'a str>,
-    pub enabledExtensionCount: u32,
-    pub ppEnabledExtensionNames: Option<&'a str>,
+    pub ppEnabledLayerNames: Option<Vec<&'a str>>,
+    pub ppEnabledExtensionNames: Option<Vec<&'a str>>,
 }
 
 pub struct InstanceCreateInfoBuilder<'a, T, U> {
     pub pNext: Option<T>,
     pub flags: Option<u32>,
     pub pApplicationInfo: Option<&'a ApplicationInfo<'a, U>>,
-    pub enabledLayerCount: Option<u32>,
-    pub ppEnabledLayerNames: Option<&'a str>,
-    pub enabledExtensionCount: Option<u32>,
-    pub ppEnabledExtensionNames: Option<&'a str>,
+    pub ppEnabledLayerNames: Option<Vec<&'a str>>,
+    pub ppEnabledExtensionNames: Option<Vec<&'a str>>,
 }
 
 impl<'a, T, U> InstanceCreateInfo<'a, T, U> {
@@ -37,13 +33,75 @@ impl<'a, T, U> InstanceCreateInfo<'a, T, U> {
                 Some(pApplicationInfo) => Box::into_raw(Box::new(pApplicationInfo.into_raw())) as *const _,
                 None => ptr::null(),
             },
-            enabledLayerCount: self.enabledLayerCount,
+            enabledLayerCount: match self.ppEnabledLayerNames {
+                Some(ppEnabledLayerNames) => ppEnabledLayerNames.len() as u32,
+                None => 0,
+            },
             ppEnabledLayerNames: match self.ppEnabledLayerNames {
-                Some(ppEnabledLayerNames) => ppEnabledLayerNames.as_ptr(),
+                Some(ppEnabledLayerNames) => {
+                    let new_vec = vec![];
+                    for layer_name in ppEnabledLayerNames {
+                        new_vec.push(CString::new(layer_name.as_bytes()).unwrap().as_ptr());
+                    }
+                    new_vec.as_ptr()
+                },
                 None => ptr::null(),
             },
-            enabledExtensionCount: 0,
-            ppEnabledExtensionNames: ptr::null(),
+            enabledExtensionCount: match self.ppEnabledExtensionNames {
+                Some(ppEnabledExtensionNames) => ppEnabledExtensionNames.len() as u32,
+                None => 0,
+            },
+            ppEnabledExtensionNames: match self.ppEnabledExtensionNames {
+                Some(ppEnabledExtensionNames) => {
+                    let new_vec = vec![];
+                    for extension_name in ppEnabledExtensionNames {
+                        new_vec.push(CString::new(extension_name.as_bytes()).unwrap().as_ptr());
+                    }
+                    new_vec.as_ptr()
+                },
+                None => ptr::null(),
+            },
         };
+    }
+}
+
+impl<'a, T, U> InstanceCreateInfoBuilder<'a, T, U> {
+    pub fn new() -> Self {
+        Self {
+            pNext: None,
+            flags: None,
+            pApplicationInfo: None,
+            ppEnabledLayerNames: None,
+            ppEnabledExtensionNames: None,
+        }
+    }
+    pub fn pNext(mut self, pNext: T) -> Self {
+        self.pNext = Some(pNext);
+        self
+    }
+    pub fn flags(mut self, flags: u32) -> Self {
+        self.flags = Some(flags);
+        self
+    }
+    pub fn application_info(mut self, application_info: &'a ApplicationInfo<'a, U>) -> Self {
+        self.pApplicationInfo = Some(application_info);
+        self
+    }
+    pub fn enabled_layer_names(mut self, enabled_layer_names: Vec<&'a str>) -> Self {
+        self.ppEnabledLayerNames = Some(enabled_layer_names);
+        self
+    }
+    pub fn enabled_extensions(mut self, enabled_extensions: Vec<&'a str>) -> Self {
+        self.ppEnabledExtensionNames = Some(enabled_extensions);
+        self
+    }
+    pub fn build(self) -> InstanceCreateInfo<'a, T, U> {
+        InstanceCreateInfo {
+            pNext: self.pNext,
+            flags: self.flags.unwrap_or(0),
+            pApplicationInfo: self.pApplicationInfo,
+            ppEnabledLayerNames: self.ppEnabledLayerNames,
+            ppEnabledExtensionNames: self.ppEnabledExtensionNames,
+        }
     }
 }
