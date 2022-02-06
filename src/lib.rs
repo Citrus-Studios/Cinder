@@ -6,4 +6,5 @@ pub mod vulkan {
     pub mod application_info;
     pub mod instance;
     pub mod physical_device;
+    pub mod instance_create_info;
 }
