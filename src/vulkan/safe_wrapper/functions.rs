@@ -12,18 +12,19 @@ pub(crate) fn create_instance(
     allocator: Option<VkAllocationCallbacks>, 
 ) -> CinderResult<VkInstance> {
     unsafe {
-        let instance = zeroed();
+        let mut instance: VkInstance = zeroed();
         let result = vkCreateInstance(
             match create_info {
                 Some(create_info) => &create_info as *const _,
                 None => ptr::null(),
             },
             match allocator {
-                Some(allocator) => &allocator as *const _,
-                None => ptr::null(),
+                Some(mut allocator) => &mut allocator as *mut _,
+                None => ptr::null_mut(),
             },
-            instance,
+            &mut instance,
         );
-        CinderResult::new(result, *instance)
+        let x = instance;
+        CinderResult::new(result, instance)
     }
 }
