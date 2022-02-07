@@ -1,36 +1,3 @@
-
-pub enum CinderResult<T> {
-    OkC(T),
-    ErrC(i32),
-}
-
-impl<T> CinderResult<T> {
-    pub fn new(result: i32, value: T) -> Self {
-        match result {
-            0 => CinderResult::OkC(value),
-            _ => CinderResult::ErrC(result),
-        }
-    }
-    pub fn is_ok(&self) -> bool {
-        match self {
-            CinderResult::OkC(_) => true,
-            _ => false,
-        }
-    }
-    pub fn is_err(&self) -> bool {
-        match self {
-            CinderResult::ErrC(_) => true,
-            _ => false,
-        }
-    }
-    pub fn unwrap(self) -> T {
-        match self {
-            CinderResult::OkC(value) => value,
-            CinderResult::ErrC(value) => panic!("{}", value),
-        }
-    }
-}
-
 pub trait MatchErrorCode<'a> {
     fn match_error_code(self) -> &'a str;
 }

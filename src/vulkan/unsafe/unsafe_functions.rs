@@ -7,7 +7,6 @@ use mira::{vulkan::{PFN_vkCreateInstance, PFN_vkEnumeratePhysicalDevices, VkInst
 use const_cstr::*;
 use paste::paste;
 
-use crate::result::CinderResult;
 
 macro_rules! vk_instance {(
 $(

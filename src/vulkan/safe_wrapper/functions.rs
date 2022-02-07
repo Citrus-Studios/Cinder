@@ -1,16 +1,17 @@
 use std::mem::zeroed;
 use std::ptr;
 
+use mira::mem::zeroed_vec;
+use mira::vulkan::VkPhysicalDevice;
 use mira::vulkan::{VkInstanceCreateInfo, VkAllocationCallbacks, VkInstance};
 
-use crate::result::CinderResult;
-
 use crate::vulkan::r#unsafe::unsafe_functions::vkCreateInstance;
+use crate::vulkan::r#unsafe::unsafe_functions::vkEnumeratePhysicalDevices;
 
 pub(crate) fn create_instance(
     create_info: Option<VkInstanceCreateInfo>, 
     allocator: Option<VkAllocationCallbacks>, 
-) -> CinderResult<VkInstance> {
+) -> Result<VkInstance, i32> {
     unsafe {
         let mut instance: VkInstance = zeroed();
         let result = vkCreateInstance(
@@ -24,7 +25,32 @@ pub(crate) fn create_instance(
             },
             &mut instance,
         );
-        let x = instance;
-        CinderResult::new(result, instance)
+        match result {
+            VK_SUCCESS => Ok(instance),
+            _ => Err(result),
+        }
+    }
+}
+
+pub(crate) fn get_physical_devices(
+    instance: VkInstance,
+) -> Result<Vec<VkPhysicalDevice>, i32> {
+    unsafe {
+        let mut amount = 0u32;
+        match vkEnumeratePhysicalDevices(instance, &mut amount, ptr::null_mut()) {
+            VK_SUCCESS => {},
+            error => {
+                return Err(error);
+            }
+        }
+
+        let mut devices = unsafe { zeroed_vec::<VkPhysicalDevice>(amount as usize) };
+        match vkEnumeratePhysicalDevices(instance, &mut amount, devices.as_mut_ptr()) {
+            VK_SUCCESS => {},
+            error => {
+                return Err(error);
+            }
+        }
+        Ok(devices)
     }
 }
