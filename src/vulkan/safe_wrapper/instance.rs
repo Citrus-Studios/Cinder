@@ -5,7 +5,7 @@ use mira::{vulkan::{self as vk, VK_SUCCESS}};
 use const_cstr::*;
 use vk::{VkInstance, VK_MAKE_API_VERSION, VkInstanceCreateInfo};
 
-use crate::vulkan::functions::vkCreateInstance;
+use crate::vulkan::r#unsafe::unsafe_functions::vkCreateInstance;
 
 use super::{application_info::ApplicationInfoBuilder, instance_create_info::InstanceCreateInfoBuilder};
 
@@ -56,8 +56,6 @@ impl Instance {
             },
             _ => panic!("Failed to create instance"),
         }
-
-        
     }
 }
 

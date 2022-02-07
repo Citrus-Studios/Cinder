@@ -1,7 +1,7 @@
 use std::{ptr, sync::Arc};
 
 use mira::vulkan::{VkPhysicalDevice};
-use crate::vulkan::functions::vkEnumeratePhysicalDevices;
+use crate::vulkan::r#unsafe::unsafe_functions::vkEnumeratePhysicalDevices;
 
 use super::instance::Instance;
 

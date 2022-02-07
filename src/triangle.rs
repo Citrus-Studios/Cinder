@@ -1,4 +1,5 @@
-use crate::vulkan::{instance::InstanceBuilder, physical_device::PhysicalDevice};
+use crate::vulkan::safe_wrapper::{instance::InstanceBuilder, physical_device::PhysicalDevice};
+
 
 #[test]
 fn triangle() {
