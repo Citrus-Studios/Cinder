@@ -55,7 +55,8 @@ impl<'a, T, U> InstanceCreateInfo<'a, T, U> {
                 Some(ref ppEnabledLayerNames) => {
                     let mut new_vec = vec![];
                     for layer_name in ppEnabledLayerNames {
-                        new_vec.push(CString::new(layer_name.as_bytes()).unwrap().as_ptr());
+                        let x = CString::new(layer_name.as_bytes()).unwrap();
+                        new_vec.push(x.as_ptr());
                     }
                     new_vec.as_ptr()
                 },
@@ -69,7 +70,8 @@ impl<'a, T, U> InstanceCreateInfo<'a, T, U> {
                 Some(ref ppEnabledExtensionNames) => {
                     let mut new_vec = vec![];
                     for extension_name in ppEnabledExtensionNames {
-                        new_vec.push(CString::new(extension_name.as_bytes()).unwrap().as_ptr());
+                        let x = CString::new(extension_name.as_bytes()).unwrap();
+                        new_vec.push(x.as_ptr());
                     }
                     new_vec.as_ptr()
                 },
