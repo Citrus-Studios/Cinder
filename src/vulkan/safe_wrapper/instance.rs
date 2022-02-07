@@ -4,10 +4,10 @@ use mira::{vulkan::{self as vk, VK_SUCCESS}};
 #[allow(unused_imports)]
 use const_cstr::*;
 use vk::{VkInstance, VK_MAKE_API_VERSION, VkInstanceCreateInfo};
+use crate::result::{CinderResult::{OkC, ErrC}, MatchErrorCode};
 
-use crate::vulkan::r#unsafe::unsafe_functions::vkCreateInstance;
 
-use super::{application_info::ApplicationInfoBuilder, instance_create_info::InstanceCreateInfoBuilder};
+use super::{application_info::ApplicationInfoBuilder, instance_create_info::InstanceCreateInfoBuilder, functions::create_instance};
 
 pub struct Instance {
     pub(crate) instance: VkInstance,
@@ -45,16 +45,10 @@ impl Instance {
             .application_info(application_info)
             .build();
 
-        let instance = unsafe { zeroed() };
-        let instance_info = instance_create_info.into_raw();
-        let result = vkCreateInstance(&instance_info as *const VkInstanceCreateInfo, ptr::null(), instance);
-        match result {
-            VK_SUCCESS => {
-                unsafe { Arc::new(Instance {
-                    instance: *instance
-                })}
-            },
-            _ => panic!("Failed to create instance"),
+        let instance_result = create_instance(Some(instance_create_info.into_raw()), None);
+        match instance_result {
+            OkC(instance) => Arc::new(Instance { instance }),
+            ErrC(error) => panic!("Failed to create instance: {:?}", error.match_error_code()),
         }
     }
 }
