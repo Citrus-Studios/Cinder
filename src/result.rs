@@ -1,44 +1,32 @@
 
 pub enum CinderResult<T> {
-    Ok(T),
-    Err(i32),
+    OkC(T),
+    ErrC(i32),
 }
 
 impl<T> CinderResult<T> {
     pub fn new(result: i32, value: T) -> Self {
         match result {
-            0 => CinderResult::Ok(value),
-            _ => CinderResult::Err(result),
+            0 => CinderResult::OkC(value),
+            _ => CinderResult::ErrC(result),
         }
     }
     pub fn is_ok(&self) -> bool {
         match self {
-            CinderResult::Ok(_) => true,
+            CinderResult::OkC(_) => true,
             _ => false,
         }
     }
     pub fn is_err(&self) -> bool {
         match self {
-            CinderResult::Err(_) => true,
+            CinderResult::ErrC(_) => true,
             _ => false,
         }
     }
-    pub fn unwrap(self) -> i32 {
+    pub fn unwrap(self) -> T {
         match self {
-            CinderResult::Ok(value) => value,
-            CinderResult::Err(value) => panic!("{}", value),
-        }
-    }
-    pub fn unwrap_or(self, err_value: i32) -> i32 {
-        match self {
-            CinderResult::Ok(value) => value,
-            CinderResult::Err(_) => err_value,
-        }
-    }
-    pub fn unwrap_or_else(self, err_func: impl FnOnce() -> i32) -> i32 {
-        match self {
-            CinderResult::Ok(value) => value,
-            CinderResult::Err(_) => err_func(),
+            CinderResult::OkC(value) => value,
+            CinderResult::ErrC(value) => panic!("{}", value),
         }
     }
 }
