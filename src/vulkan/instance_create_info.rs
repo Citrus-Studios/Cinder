@@ -1,3 +1,4 @@
+#![allow(non_snake_case)]
 use std::{ptr, ffi::CString};
 
 use mira::vulkan::{VkInstanceCreateInfo, VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO, VK_MAKE_API_VERSION};
