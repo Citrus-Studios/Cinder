@@ -1,9 +1,9 @@
-use std::{ptr, ffi::{CString}, sync::Arc, mem::zeroed};
+use std::{sync::Arc, mem::zeroed, ptr};
 
-use mira::{vulkan::{self as vk, VK_SUCCESS, VK_STRUCTURE_TYPE_APPLICATION_INFO}};
+use mira::{vulkan::{self as vk, VK_SUCCESS}};
 #[allow(unused_imports)]
 use const_cstr::*;
-use vk::{VkInstance, VK_MAKE_API_VERSION, VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO, VkApplicationInfo, VkInstanceCreateInfo};
+use vk::{VkInstance, VK_MAKE_API_VERSION, VkInstanceCreateInfo};
 
 use crate::vulkan::functions::vkCreateInstance;
 

@@ -1,6 +1,6 @@
 use std::{ptr, sync::Arc};
 
-use mira::vulkan::{VkPhysicalDevice, VK_SUCCESS, HANDLE};
+use mira::vulkan::{VkPhysicalDevice};
 use crate::vulkan::functions::vkEnumeratePhysicalDevices;
 
 use super::instance::Instance;
