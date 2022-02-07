@@ -24,6 +24,6 @@ pub(crate) fn create_instance(
             },
             instance,
         );
-        CinderResult::new(result, *instance)
+        CinderResult::new(result, instance)
     }
 }
