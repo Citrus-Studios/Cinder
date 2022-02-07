@@ -13,14 +13,14 @@ fn application_info_test() {
         .engine_version(VK_MAKE_API_VERSION(0, 1, 0, 0))
         .build();
     let instance_create_info = InstanceCreateInfoBuilder::<(), ()>::new()
-        .application_info(&app_info)
+        .application_info(app_info)
         .build();
 }
 
 pub struct InstanceCreateInfo<'a, T, U> {
     pub pNext: Option<T>,
     pub flags: u32,
-    pub pApplicationInfo: Option<&'a ApplicationInfo<'a, U>>,
+    pub pApplicationInfo: Option<ApplicationInfo<'a, U>>,
     pub ppEnabledLayerNames: Option<Vec<&'a str>>,
     pub ppEnabledExtensionNames: Option<Vec<&'a str>>,
 }
@@ -28,7 +28,7 @@ pub struct InstanceCreateInfo<'a, T, U> {
 pub struct InstanceCreateInfoBuilder<'a, T, U> {
     pub pNext: Option<T>,
     pub flags: Option<u32>,
-    pub pApplicationInfo: Option<&'a ApplicationInfo<'a, U>>,
+    pub pApplicationInfo: Option<ApplicationInfo<'a, U>>,
     pub ppEnabledLayerNames: Option<Vec<&'a str>>,
     pub ppEnabledExtensionNames: Option<Vec<&'a str>>,
 }
@@ -47,12 +47,12 @@ impl<'a, T, U> InstanceCreateInfo<'a, T, U> {
                 None => ptr::null(),
             },
             enabledLayerCount: match self.ppEnabledLayerNames {
-                Some(ppEnabledLayerNames) => ppEnabledLayerNames.len() as u32,
+                Some(ref ppEnabledLayerNames) => ppEnabledLayerNames.len() as u32,
                 None => 0,
             },
             ppEnabledLayerNames: match self.ppEnabledLayerNames {
-                Some(ppEnabledLayerNames) => {
-                    let new_vec = vec![];
+                Some(ref ppEnabledLayerNames) => {
+                    let mut new_vec = vec![];
                     for layer_name in ppEnabledLayerNames {
                         new_vec.push(CString::new(layer_name.as_bytes()).unwrap().as_ptr());
                     }
@@ -61,12 +61,12 @@ impl<'a, T, U> InstanceCreateInfo<'a, T, U> {
                 None => ptr::null(),
             },
             enabledExtensionCount: match self.ppEnabledExtensionNames {
-                Some(ppEnabledExtensionNames) => ppEnabledExtensionNames.len() as u32,
+                Some(ref ppEnabledExtensionNames) => ppEnabledExtensionNames.len() as u32,
                 None => 0,
             },
             ppEnabledExtensionNames: match self.ppEnabledExtensionNames {
-                Some(ppEnabledExtensionNames) => {
-                    let new_vec = vec![];
+                Some(ref ppEnabledExtensionNames) => {
+                    let mut new_vec = vec![];
                     for extension_name in ppEnabledExtensionNames {
                         new_vec.push(CString::new(extension_name.as_bytes()).unwrap().as_ptr());
                     }
@@ -96,7 +96,7 @@ impl<'a, T, U> InstanceCreateInfoBuilder<'a, T, U> {
         self.flags = Some(flags);
         self
     }
-    pub fn application_info(mut self, application_info: &'a ApplicationInfo<'a, U>) -> Self {
+    pub fn application_info(mut self, application_info: ApplicationInfo<'a, U>) -> Self {
         self.pApplicationInfo = Some(application_info);
         self
     }

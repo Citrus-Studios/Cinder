@@ -1,4 +1,4 @@
-use std::{ptr, ffi::{CString}, sync::Arc};
+use std::{ptr, ffi::{CString}, sync::Arc, mem::zeroed};
 
 use mira::{vulkan::{self as vk, VK_SUCCESS, VK_STRUCTURE_TYPE_APPLICATION_INFO}};
 #[allow(unused_imports)]
@@ -7,7 +7,7 @@ use vk::{VkInstance, VK_MAKE_API_VERSION, VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO
 
 use crate::vulkan::functions::vkCreateInstance;
 
-use super::application_info::ApplicationInfoBuilder;
+use super::{application_info::ApplicationInfoBuilder, instance_create_info::InstanceCreateInfoBuilder};
 
 pub struct Instance {
     pub(crate) instance: VkInstance,
@@ -41,20 +41,13 @@ impl Instance {
             .build();
         
         // Make the instance create info
-        let instance_create_info = VkInstanceCreateInfo {
-            sType: VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,
-            pNext: ptr::null(),
-            flags: 0,
-            pApplicationInfo: &application_info as *const VkApplicationInfo,
-            enabledLayerCount: 0,
-            ppEnabledLayerNames: ptr::null(),
-            enabledExtensionCount: 0,
-            ppEnabledExtensionNames: ptr::null(),
-        };
+        let instance_create_info = InstanceCreateInfoBuilder::<(), ()>::new()
+            .application_info(application_info)
+            .build();
 
-        let instance = ptr::null_mut();
-        let instance_info = &instance_create_info as *const VkInstanceCreateInfo;
-        let result = vkCreateInstance(instance_info, ptr::null(), instance);
+        let instance = unsafe { zeroed() };
+        let instance_info = instance_create_info.into_raw();
+        let result = vkCreateInstance(&instance_info as *const VkInstanceCreateInfo, ptr::null(), instance);
         match result {
             VK_SUCCESS => {
                 unsafe { Arc::new(Instance {
