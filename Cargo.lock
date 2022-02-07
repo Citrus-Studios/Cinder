@@ -59,7 +59,6 @@ name = "cinder"
 version = "0.1.0"
 dependencies = [
  "const-cstr",
- "lazy_static",
  "mira",
  "paste",
  "winit",
