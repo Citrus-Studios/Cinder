@@ -31,7 +31,7 @@ impl<T> CinderResult<T> {
     }
 }
 
-trait MatchErrorCode<'a> {
+pub trait MatchErrorCode<'a> {
     fn match_error_code(self) -> &'a str;
 }
 
