@@ -1,9 +1,9 @@
-use std::{sync::Arc, mem::zeroed, ptr};
+use std::{sync::Arc};
 
-use mira::{vulkan::{self as vk, VK_SUCCESS}};
+use mira::{vulkan::{self as vk}};
 #[allow(unused_imports)]
 use const_cstr::*;
-use vk::{VkInstance, VK_MAKE_API_VERSION, VkInstanceCreateInfo};
+use vk::{VkInstance, VK_MAKE_API_VERSION};
 
 
 use crate::match_error_codes::MatchErrorCode;

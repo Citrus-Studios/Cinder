@@ -1,19 +1,22 @@
 #![allow(non_snake_case)]
 use std::{ptr, ffi::CString};
 
-use mira::vulkan::{VkInstanceCreateInfo, VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO, VK_MAKE_API_VERSION};
+use mira::vulkan::{VkInstanceCreateInfo, VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO};
 
-use super::application_info::{ApplicationInfo, ApplicationInfoBuilder};
+use super::application_info::{ApplicationInfo};
 
 #[test]
 fn application_info_test() {
+    use super::application_info::ApplicationInfoBuilder;
+    use mira::vulkan::VK_MAKE_API_VERSION;
+
     let app_info = ApplicationInfoBuilder::<()>::new()
         .application_name("Triangle")
         .engine_name("None")
         .application_version(VK_MAKE_API_VERSION(0, 1, 0, 0))
         .engine_version(VK_MAKE_API_VERSION(0, 1, 0, 0))
         .build();
-    let instance_create_info = InstanceCreateInfoBuilder::<(), ()>::new()
+    let _instance_create_info = InstanceCreateInfoBuilder::<(), ()>::new()
         .application_info(app_info)
         .build();
 }

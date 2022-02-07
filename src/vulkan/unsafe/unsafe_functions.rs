@@ -1,7 +1,7 @@
 #![allow(non_upper_case_globals)]
 #![allow(non_snake_case)]
-
-use lazy_static::lazy_static;
+#![allow(unused_macros)]
+#![allow(unused_imports)]
 
 use mira::{vulkan::{PFN_vkCreateInstance, PFN_vkEnumeratePhysicalDevices, VkInstanceCreateInfo, VkAllocationCallbacks, VkInstance, VkDevice, VkResult, VkPhysicalDevice}, loader};
 use const_cstr::*;
