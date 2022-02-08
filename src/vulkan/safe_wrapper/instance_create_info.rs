@@ -14,7 +14,7 @@ fn application_info_test() {
         .application_name("Triangle")
         .engine_name("None")
         .application_version(VK_MAKE_API_VERSION(0, 1, 0, 0))
-        .engine_version(VK_MAKE_API_VERSION(0, 1, 0, 0))
+        .engine_version(VK_MAKE_API_VERSION(0, 1, 3, 0))
         .build();
     let _instance_create_info = InstanceCreateInfoBuilder::<(), ()>::new()
         .application_info(app_info)
