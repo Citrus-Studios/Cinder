@@ -6,6 +6,6 @@ fn triangle() {
         .application_name("Triangle")
         .build();
 
-    let _physical_device = PhysicalDevice::new(instance);
+    let _physical_device = PhysicalDevice::new(instance).pick_best_device();
 }
 
