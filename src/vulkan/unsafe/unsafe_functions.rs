@@ -1,9 +1,10 @@
 #![allow(non_upper_case_globals)]
 #![allow(non_snake_case)]
 #![allow(unused_macros)]
+#![allow(dead_code)]
 #![allow(unused_imports)]
 
-use mira::{vulkan::{PFN_vkCreateInstance, PFN_vkGetPhysicalDeviceProperties, PFN_vkEnumeratePhysicalDevices, VkInstanceCreateInfo, VkAllocationCallbacks, VkInstance, VkDevice, VkResult, VkPhysicalDevice, VkPhysicalDeviceProperties}, loader};
+use mira::{vulkan::{PFN_vkCreateInstance, PFN_vkGetPhysicalDeviceQueueFamilyProperties, PFN_vkGetPhysicalDeviceProperties, PFN_vkEnumeratePhysicalDevices, VkInstanceCreateInfo, VkAllocationCallbacks, VkInstance, VkDevice, VkResult, VkPhysicalDevice, VkPhysicalDeviceProperties, VkQueueFamilyProperties}, loader};
 use const_cstr::*;
 use paste::paste;
 
@@ -55,4 +56,5 @@ vk_instance!(
     pub(crate) fn vkCreateInstance(pCreateInfo: *const VkInstanceCreateInfo, pAllocator: *const VkAllocationCallbacks, pInstance: *mut VkInstance) -> VkResult;
     pub(crate) fn vkEnumeratePhysicalDevices(instance: VkInstance, pPhysicalDeviceCount: *mut u32, pPhysicalDevices: *mut VkPhysicalDevice) -> VkResult;
     pub(crate) fn vkGetPhysicalDeviceProperties(physicalDevice: VkPhysicalDevice, pProperties: *mut VkPhysicalDeviceProperties);
+    pub(crate) fn vkGetPhysicalDeviceQueueFamilyProperties(physicalDevice: VkPhysicalDevice, pQueueFamilyPropertyCount: *mut u32, pQueueFamilyProperties: *mut VkQueueFamilyProperties);
 );

@@ -2,10 +2,10 @@ use std::mem::zeroed;
 use std::ptr;
 
 use mira::mem::zeroed_vec;
-use mira::vulkan::{VkPhysicalDevice, VK_SUCCESS, VkPhysicalDeviceProperties};
+use mira::vulkan::{VkPhysicalDevice, VK_SUCCESS, VkPhysicalDeviceProperties, VkQueueFamilyProperties};
 use mira::vulkan::{VkInstanceCreateInfo, VkAllocationCallbacks, VkInstance};
 
-use crate::vulkan::r#unsafe::unsafe_functions::{vkCreateInstance, vkEnumeratePhysicalDevices, vkGetPhysicalDeviceProperties};
+use crate::vulkan::r#unsafe::unsafe_functions::{vkCreateInstance, vkEnumeratePhysicalDevices, vkGetPhysicalDeviceProperties, vkGetPhysicalDeviceQueueFamilyProperties};
 
 pub(crate) fn create_instance(
     create_info: Option<VkInstanceCreateInfo>, 
@@ -59,5 +59,18 @@ pub(crate) fn get_physical_device_properties(
 ) -> VkPhysicalDeviceProperties {
     let mut properties = unsafe { zeroed::<VkPhysicalDeviceProperties>() };
     vkGetPhysicalDeviceProperties(physical_device, &mut properties, Some(instance));
+    return properties;
+}
+
+pub(crate) fn get_physical_device_queue_family_properties(
+    physical_device: VkPhysicalDevice,
+    instance: VkInstance,
+) -> Vec<VkQueueFamilyProperties> {
+    let mut amount = 0u32;
+    vkGetPhysicalDeviceQueueFamilyProperties(physical_device, &mut amount, ptr::null_mut(), Some(instance));
+    
+    let mut properties = unsafe { zeroed_vec::<VkQueueFamilyProperties>(amount as usize) };
+    vkGetPhysicalDeviceQueueFamilyProperties(physical_device, &mut amount, properties.as_mut_ptr(), Some(instance));
+    
     return properties;
 }
