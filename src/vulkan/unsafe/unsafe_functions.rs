@@ -31,25 +31,25 @@ $(
 
 
 macro_rules! vk_device {(
+$(
+    $( #[$attr:meta] )*
+    $pub:vis fn $fname:ident ( $($arg_name:ident : $ArgTy:ty),* $(,)? )$ (-> $RetTy:ty)?;
+)*) => (paste! {
     $(
-        $( #[$attr:meta] )*
-        $pub:vis fn $fname:ident ( $($arg_name:ident : $ArgTy:ty),* $(,)? )$ (-> $RetTy:ty)?;
-    )*) => (paste! {
-        $(
-            $( #[$attr] )*
-            $pub fn $fname( $( $arg_name: $ArgTy ),*, instance: Option<VkDevice> ) $(-> $RetTy)? {
-                let $fname: [<PFN_$fname>] = unsafe {
-                    loader::device(
-                        instance.unwrap_or(std::ptr::null_mut()),
-                        const_cstr!(stringify!( $fname )),
-                    ).expect(concat!(
-                        "Failed to load `", stringify!($fname), "`",
-                    ))
-                };
-                unsafe { $fname( $($arg_name),* ) }
-            }
-        )*
-    })}
+        $( #[$attr] )*
+        $pub fn $fname( $( $arg_name: $ArgTy ),*, instance: Option<VkDevice> ) $(-> $RetTy)? {
+            let $fname: [<PFN_$fname>] = unsafe {
+                loader::device(
+                    instance.unwrap_or(std::ptr::null_mut()),
+                    const_cstr!(stringify!( $fname )),
+                ).expect(concat!(
+                    "Failed to load `", stringify!($fname), "`",
+                ))
+            };
+            unsafe { $fname( $($arg_name),* ) }
+        }
+    )*
+})}
 
 vk_instance!(
     pub(crate) fn vkCreateInstance(pCreateInfo: *const VkInstanceCreateInfo, pAllocator: *const VkAllocationCallbacks, pInstance: *mut VkInstance) -> VkResult;
