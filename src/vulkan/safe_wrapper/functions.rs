@@ -2,11 +2,10 @@ use std::mem::zeroed;
 use std::ptr;
 
 use mira::mem::zeroed_vec;
-use mira::vulkan::{VkPhysicalDevice, VK_SUCCESS};
+use mira::vulkan::{VkPhysicalDevice, VK_SUCCESS, VkPhysicalDeviceProperties};
 use mira::vulkan::{VkInstanceCreateInfo, VkAllocationCallbacks, VkInstance};
 
-use crate::vulkan::r#unsafe::unsafe_functions::vkCreateInstance;
-use crate::vulkan::r#unsafe::unsafe_functions::vkEnumeratePhysicalDevices;
+use crate::vulkan::r#unsafe::unsafe_functions::{vkCreateInstance, vkEnumeratePhysicalDevices, vkGetPhysicalDeviceProperties};
 
 pub(crate) fn create_instance(
     create_info: Option<VkInstanceCreateInfo>, 
@@ -52,4 +51,13 @@ pub(crate) fn get_physical_devices(
         }
     }
     Ok(devices)
+}
+
+pub(crate) fn get_physical_device_properties(
+    physical_device: VkPhysicalDevice,
+    instance: VkInstance,
+) -> VkPhysicalDeviceProperties {
+    let mut properties = unsafe { zeroed::<VkPhysicalDeviceProperties>() };
+    vkGetPhysicalDeviceProperties(physical_device, &mut properties, Some(instance));
+    return properties;
 }

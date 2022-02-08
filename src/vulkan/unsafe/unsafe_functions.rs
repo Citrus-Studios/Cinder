@@ -3,7 +3,7 @@
 #![allow(unused_macros)]
 #![allow(unused_imports)]
 
-use mira::{vulkan::{PFN_vkCreateInstance, PFN_vkEnumeratePhysicalDevices, VkInstanceCreateInfo, VkAllocationCallbacks, VkInstance, VkDevice, VkResult, VkPhysicalDevice}, loader};
+use mira::{vulkan::{PFN_vkCreateInstance, PFN_vkGetPhysicalDeviceProperties, PFN_vkEnumeratePhysicalDevices, VkInstanceCreateInfo, VkAllocationCallbacks, VkInstance, VkDevice, VkResult, VkPhysicalDevice, VkPhysicalDeviceProperties}, loader};
 use const_cstr::*;
 use paste::paste;
 
@@ -54,4 +54,5 @@ $(
 vk_instance!(
     pub(crate) fn vkCreateInstance(pCreateInfo: *const VkInstanceCreateInfo, pAllocator: *const VkAllocationCallbacks, pInstance: *mut VkInstance) -> VkResult;
     pub(crate) fn vkEnumeratePhysicalDevices(instance: VkInstance, pPhysicalDeviceCount: *mut u32, pPhysicalDevices: *mut VkPhysicalDevice) -> VkResult;
+    pub(crate) fn vkGetPhysicalDeviceProperties(physicalDevice: VkPhysicalDevice, pProperties: *mut VkPhysicalDeviceProperties);
 );
