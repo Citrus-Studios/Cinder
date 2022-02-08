@@ -1,6 +1,6 @@
 use std::{sync::Arc};
 
-use mira::{vulkan::{VkPhysicalDevice, VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU, VK_PHYSICAL_DEVICE_TYPE_VIRTUAL_GPU, VkInstance, VkPhysicalDeviceProperties}, mem::from_cstring};
+use mira::{vulkan::{VkPhysicalDevice, VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU, VK_PHYSICAL_DEVICE_TYPE_VIRTUAL_GPU, VkInstance, VkPhysicalDeviceProperties}};
 
 
 use crate::{vulkan::safe_wrapper::functions::{get_physical_devices, get_physical_device_properties}, match_error_codes::MatchErrorCode};
@@ -36,13 +36,6 @@ impl PhysicalDevice {
         for device in devices.iter() {
             let device_properties: VkPhysicalDeviceProperties = std::mem::zeroed();
             get_physical_device_properties(*device, self.instance);
-    
-            let name = match from_cstring(device_properties.deviceName.as_ptr()) {
-                Ok(name) => name,
-                _ => continue
-            };
-    
-            println!("Adapter name: {}", name);
     
             if gpu_range.contains(&device_properties.deviceType) {
                 selected_device = *device;
