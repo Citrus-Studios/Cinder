@@ -1,6 +1,6 @@
 #[test]
 fn triangle() {
-    use crate::vulkan::safe_wrapper::{instance::InstanceBuilder, physical_device::PhysicalDevice};
+    use crate::vulkan::safe::{instance::InstanceBuilder, physical_device::PhysicalDevice};
 
     let instance = InstanceBuilder::new()
         .application_name("Cinder")

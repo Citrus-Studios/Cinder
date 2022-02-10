@@ -2,7 +2,7 @@ pub mod triangle;
 pub mod match_error_codes;
 
 pub mod vulkan {
-    pub mod safe_wrapper {
+    pub mod safe {
         pub mod application_info;
         pub mod instance;
         pub mod physical_device;

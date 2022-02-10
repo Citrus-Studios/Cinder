@@ -3,7 +3,7 @@ use std::{sync::Arc};
 use mira::{vulkan::{VkPhysicalDevice, VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU, VK_PHYSICAL_DEVICE_TYPE_VIRTUAL_GPU, VkInstance, VkPhysicalDeviceProperties}};
 
 
-use crate::{vulkan::safe_wrapper::functions::{get_physical_devices, get_physical_device_properties}, match_error_codes::MatchErrorCode};
+use crate::{vulkan::safe::functions::{get_physical_devices, get_physical_device_properties}, match_error_codes::MatchErrorCode};
 
 use super::instance::Instance;
 #[derive(Clone)]
