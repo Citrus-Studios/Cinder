@@ -8,9 +8,9 @@ use crate::{vulkan::safe::functions::{get_physical_devices, get_physical_device_
 use super::instance::Instance;
 #[derive(Clone)]
 pub struct PhysicalDevice {
-    physical_devices: Vec<VkPhysicalDevice>,
-    current_physical_device: VkPhysicalDevice,
-    instance: VkInstance
+    pub(crate) physical_devices: Vec<VkPhysicalDevice>,
+    pub(crate) current_physical_device: VkPhysicalDevice,
+    pub(crate) instance: VkInstance
 }
 
 impl PhysicalDevice {
