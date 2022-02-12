@@ -9,7 +9,7 @@ pub mod vulkan {
         pub mod instance_create_info;
         pub mod functions;
         pub mod device_queue_create_info;
-        pub mod queue_family_indices;
+        pub mod queue_family;
     }
     pub mod r#unsafe {
         pub mod unsafe_functions;
