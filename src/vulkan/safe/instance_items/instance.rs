@@ -8,7 +8,7 @@ use vk::{VkInstance, VK_MAKE_API_VERSION};
 
 use crate::match_error_codes::MatchErrorCode;
 
-use super::{application_info::ApplicationInfoBuilder, instance_create_info::InstanceCreateInfoBuilder, functions::create_instance};
+use super::{application_info::ApplicationInfoBuilder, instance_create_info::InstanceCreateInfoBuilder, super::functions::create_instance};
 
 pub struct Instance {
     pub(crate) instance: VkInstance,

@@ -1,11 +1,11 @@
 use mira::vulkan::{VK_QUEUE_GRAPHICS_BIT, VK_QUEUE_COMPUTE_BIT};
 
 
-use super::{physical_device::PhysicalDevice, functions::{get_physical_device_queue_family_properties, physical_device_surface_support}};
+use super::{physical_device::PhysicalDevice, super::functions::{get_physical_device_queue_family_properties, physical_device_surface_support}};
 
 #[test]
 pub fn test_get_physical_device_queue_family_properties() {
-    use crate::vulkan::safe::{instance::InstanceBuilder, physical_device::PhysicalDevice};
+    use crate::vulkan::safe::{instance_items::instance::InstanceBuilder, device_items::physical_device::PhysicalDevice};
     let instance = InstanceBuilder::new()
         .application_name("Triangle")
         .build();

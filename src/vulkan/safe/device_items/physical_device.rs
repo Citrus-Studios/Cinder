@@ -5,7 +5,7 @@ use mira::{vulkan::{VkPhysicalDevice, VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU, VK
 
 use crate::{vulkan::safe::functions::{get_physical_devices, get_physical_device_properties}, match_error_codes::MatchErrorCode};
 
-use super::instance::Instance;
+use super::super::instance_items::instance::Instance;
 #[derive(Clone)]
 pub struct PhysicalDevice {
     pub(crate) physical_devices: Vec<VkPhysicalDevice>,
