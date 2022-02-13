@@ -8,7 +8,7 @@ use mira::{vulkan::*, loader};
 use const_cstr::*;
 use paste::paste;
 
-
+// Creates a "safe" function for the unsafe function
 macro_rules! vk_instance {(
 $(
     $( #[$attr:meta] )*
@@ -30,7 +30,7 @@ $(
     )*
 })}
 
-
+// Creates a "safe" function for the unsafe function
 macro_rules! vk_device {(
 $(
     $( #[$attr:meta] )*
