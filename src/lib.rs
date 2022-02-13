@@ -9,6 +9,7 @@ pub mod vulkan {
             pub mod queue_family;
             pub mod device_queue_create_info;
             pub mod device_create_info;
+            pub mod physical_device_features;
         }
         pub mod instance_items {
             pub mod application_info;
