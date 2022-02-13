@@ -6,10 +6,12 @@ pub mod vulkan {
         pub mod application_info;
         pub mod instance;
         pub mod physical_device;
+        pub mod logical_device;
         pub mod instance_create_info;
         pub mod functions;
         pub mod device_queue_create_info;
         pub mod queue_family;
+        pub mod device_create_info;
     }
     pub mod r#unsafe {
         pub mod unsafe_functions;
