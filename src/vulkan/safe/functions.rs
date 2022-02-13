@@ -75,14 +75,26 @@ pub(crate) fn get_physical_device_queue_family_properties(
     return properties;
 }
 
+#[test] 
+pub fn optional_surface_test() {
+    let instance = create_instance(None, None).unwrap();
+    let physical_devices = get_physical_devices(instance).unwrap();
+    let physical_device = physical_devices[0];
+    let properties = get_physical_device_properties(physical_device, instance);
+    println!("{:?}", properties);
+}
+
 pub(crate) fn physical_device_surface_support(
     physical_device: VkPhysicalDevice,
     queue_family_index: u32,
-    surface: VkSurfaceKHR,
+    surface: Option<VkSurfaceKHR>,
     instance: VkInstance,
 ) -> bool {
     let mut supported = 0u32;
-    let result = vkGetPhysicalDeviceSurfaceSupportKHR(physical_device, queue_family_index, surface, &mut supported, Some(instance));
+    let result = vkGetPhysicalDeviceSurfaceSupportKHR(physical_device, queue_family_index, match surface {
+        Some(surface) => surface,
+        None => ptr::null_mut(),
+    }, &mut supported, Some(instance));
     match result {
         VK_SUCCESS => {},
         _ => {
