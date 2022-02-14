@@ -53,17 +53,17 @@ impl<T> DeviceQueueCreateInfoBuilder<T> {
 
     pub fn next(mut self, next: T) -> Self {
         self.next = Some(next);
-        self
+        
     }
 
     pub fn flags(mut self, flags: u32) -> Self {
         self.flags = Some(flags);
-        self
+        
     }
 
     pub fn queue_family_index(mut self, queue_family_index: u32) -> Self {
         self.queue_family_index = Some(queue_family_index);
-        self
+        
     }
 
     pub fn queue_count(mut self, queue_count: u32) -> Self {
