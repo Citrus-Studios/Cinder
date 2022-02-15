@@ -1,11 +1,11 @@
-use super::{queue_family::QueueFamily, physical_device::PhysicalDevice};
+use mira::vulkan::VkDevice;
 
 pub struct LogicalDevice {
 
 }
 
 impl LogicalDevice {
-    pub fn create_logical_device(physical_device: PhysicalDevice) {
-        let indices = QueueFamily::new().select_queue_family(physical_device);
+    pub fn into_raw(self) -> VkDevice {
+        todo!();
     }
 }
