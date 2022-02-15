@@ -17,6 +17,7 @@ pub mod vulkan {
             pub mod instance_create_info;
         }
         pub mod functions;
+        pub mod window_surface;
     }
     pub mod r#unsafe {
         pub mod unsafe_functions;
