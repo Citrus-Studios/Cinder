@@ -1,3 +1,4 @@
+#![allow(non_snake_case)]
 use mira::vulkan::VkPhysicalDeviceFeatures;
 
 // 🤢🤮🤮🤮🤮

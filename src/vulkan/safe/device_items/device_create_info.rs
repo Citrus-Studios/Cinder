@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 use super::{physical_device_features::PhysicalDeviceFeaturesBuilder, device_queue_create_info::DeviceQueueCreateInfo};
 
 pub struct DeviceCreateInfo<'a, T> {

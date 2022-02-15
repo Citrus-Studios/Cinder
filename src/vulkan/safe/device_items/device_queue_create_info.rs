@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 use std::ptr;
 
 use mira::vulkan::{VkDeviceQueueCreateInfo, VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO};
