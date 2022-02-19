@@ -1,4 +1,6 @@
 #![allow(dead_code)]
+use mira::vulkan::VkDeviceCreateInfo;
+
 use super::{physical_device_features::PhysicalDeviceFeaturesBuilder, device_queue_create_info::DeviceQueueCreateInfo};
 
 pub struct DeviceCreateInfo<'a, T> {
@@ -13,3 +15,8 @@ pub struct DeviceCreateInfo<'a, T> {
     enabled_features: PhysicalDeviceFeaturesBuilder,
 }
 
+impl<'a, T> DeviceCreateInfo<'a, T> {
+    pub fn into_raw() -> VkDeviceCreateInfo {
+        todo!();
+    }
+}
