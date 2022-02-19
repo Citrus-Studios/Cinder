@@ -3,7 +3,8 @@ use std::ptr;
 
 use mira::vulkan::{VkDeviceQueueCreateInfo, VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO};
 
-pub struct DeviceQueueCreateInfo<T> {
+#[derive(Clone)]
+pub struct DeviceQueueCreateInfo<T: Clone> {
     next: Option<T>,
     flags: Option<u32>,
     queue_family_index: u32,
@@ -11,7 +12,8 @@ pub struct DeviceQueueCreateInfo<T> {
     queue_priorities: Option<Vec<f32>>,
 }
 
-pub struct DeviceQueueCreateInfoBuilder<T> {
+#[derive(Clone)]
+pub struct DeviceQueueCreateInfoBuilder<T: Clone> {
     next: Option<T>,
     flags: Option<u32>,
     queue_family_index: Option<u32>,
@@ -19,7 +21,7 @@ pub struct DeviceQueueCreateInfoBuilder<T> {
     queue_priorities: Option<Vec<f32>>,
 }
 
-impl<T> DeviceQueueCreateInfo<T> {
+impl<T: Clone> DeviceQueueCreateInfo<T> {
     pub(crate) fn into_raw(self) -> VkDeviceQueueCreateInfo {
         return VkDeviceQueueCreateInfo {
             sType: VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO,
@@ -41,7 +43,7 @@ impl<T> DeviceQueueCreateInfo<T> {
     }
 }
 
-impl<T> DeviceQueueCreateInfoBuilder<T> {
+impl<T: Clone> DeviceQueueCreateInfoBuilder<T> {
     pub fn new() -> Self {
         DeviceQueueCreateInfoBuilder {
             next: None,
