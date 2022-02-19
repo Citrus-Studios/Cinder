@@ -2,10 +2,13 @@ use std::mem::zeroed;
 use std::ptr;
 
 use mira::mem::zeroed_vec;
-use mira::vulkan::{VkPhysicalDevice, VK_SUCCESS, VkPhysicalDeviceProperties, VkQueueFamilyProperties, VkSurfaceKHR};
+use mira::vulkan::{VkPhysicalDevice, VK_SUCCESS, VkPhysicalDeviceProperties, VkQueueFamilyProperties, VkSurfaceKHR, VkDevice};
 use mira::vulkan::{VkInstanceCreateInfo, VkAllocationCallbacks, VkInstance};
 
 use crate::vulkan::r#unsafe::unsafe_functions::*;
+
+use super::device_items::device_create_info::DeviceCreateInfo;
+use super::device_items::physical_device::PhysicalDevice;
 
 pub(crate) fn create_instance(
     create_info: Option<VkInstanceCreateInfo>, 
@@ -105,4 +108,29 @@ pub(crate) fn physical_device_surface_support(
         0 => false,
         _ => true,
     };
+}
+
+pub(crate) fn create_device<T: Clone>(
+    physical_device: PhysicalDevice,
+    create_info: Option<DeviceCreateInfo<T>>,
+    allocator: Option<VkAllocationCallbacks>,
+) -> Result<VkDevice, i32> {
+    let mut device: VkDevice = unsafe { zeroed() };
+    let result = vkCreateDevice(
+        physical_device.current_physical_device, 
+        match create_info {
+            Some(createinfo) => &createinfo.into_raw() as *const _,
+            None => ptr::null(),
+        }, 
+        match allocator {
+            Some(mut allocator) => &mut allocator as *mut _,
+            None => ptr::null_mut(),
+        }, 
+        &mut device, 
+        Some(physical_device.instance)
+    );
+    if result != 0 {
+        return Err(result);
+    }
+    return Ok(device);
 }
