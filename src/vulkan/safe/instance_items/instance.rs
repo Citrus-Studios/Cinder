@@ -10,6 +10,7 @@ use crate::match_error_codes::MatchErrorCode;
 
 use super::{application_info::ApplicationInfoBuilder, instance_create_info::InstanceCreateInfoBuilder, super::functions::create_instance};
 
+#[derive(Clone, Copy)]
 pub struct Instance {
     pub(crate) instance: VkInstance,
 }
