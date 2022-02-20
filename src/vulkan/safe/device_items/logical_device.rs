@@ -12,7 +12,7 @@ fn create_device_test() {
     let instance = InstanceBuilder::new().build();
     let physical_device = PhysicalDevice::new(instance);
     let device_create_info = DeviceCreateInfoBuilder::<()>::new().build();
-    let _device = LogicalDevice::new(physical_device, Some(device_create_info), None);
+    let _device = LogicalDevice::new(physical_device, device_create_info, None);
 }
 
 pub struct LogicalDevice {
@@ -20,9 +20,9 @@ pub struct LogicalDevice {
 }
 
 impl LogicalDevice {
-    pub fn new<T: Clone>(physical_device: PhysicalDevice, create_info: Option<DeviceCreateInfo<T>>, allocator: Option<VkAllocationCallbacks>) -> Self {
+    pub fn new<T: Clone>(physical_device: PhysicalDevice, create_info: DeviceCreateInfo<T>, allocator: Option<VkAllocationCallbacks>) -> Self {
         LogicalDevice {
-            device: create_device(physical_device, create_info, allocator).unwrap(),
+            device: create_device(physical_device.clone(), Some(create_info), allocator).unwrap(),
         }
     }
 }
