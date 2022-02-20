@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 use mira::vulkan::{VkDevice, VkAllocationCallbacks};
 
 use crate::vulkan::safe::{functions::create_device, };
@@ -11,7 +12,7 @@ fn create_device_test() {
     let instance = InstanceBuilder::new().build();
     let physical_device = PhysicalDevice::new(instance);
     let device_create_info = DeviceCreateInfoBuilder::<()>::new().build();
-    let device = LogicalDevice::new(physical_device, Some(device_create_info), None);
+    let _device = LogicalDevice::new(physical_device, Some(device_create_info), None);
 }
 
 pub struct LogicalDevice {
