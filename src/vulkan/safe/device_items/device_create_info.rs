@@ -17,6 +17,18 @@ pub struct DeviceCreateInfo<'a, T: Clone> {
     enabled_features: PhysicalDeviceFeaturesBuilder,
 }
 
+pub struct DeviceCreateInfoBuilder<'a, T: Clone> {
+    next: Option<T>,
+    flags: Option<u32>,
+    queue_create_info_count: Option<u32>,
+    queue_create_infos: Option<DeviceQueueCreateInfo<T>>,
+    enabled_layer_count: Option<u32>,
+    enabled_layer_names: Option<Vec<&'a str>>,
+    enabled_extension_count: Option<u32>,
+    enabled_extension_names: Option<Vec<&'a str>>,
+    enabled_features: Option<PhysicalDeviceFeaturesBuilder>,
+}
+
 impl<'a, T: Clone> DeviceCreateInfo<'a, T> {
     pub fn into_raw(&self) -> VkDeviceCreateInfo {
         return VkDeviceCreateInfo { 
@@ -54,6 +66,70 @@ impl<'a, T: Clone> DeviceCreateInfo<'a, T> {
                 None => ptr::null(),
             },
             pEnabledFeatures: &self.enabled_features.into_raw(),
+        }
+    }
+}
+
+impl<'a, T: Clone> DeviceCreateInfoBuilder<'a, T> {
+    pub fn new() -> Self {
+        DeviceCreateInfoBuilder {
+            next: None,
+            flags: None,
+            queue_create_info_count: None,
+            queue_create_infos: None,
+            enabled_layer_count: None,
+            enabled_layer_names: None,
+            enabled_extension_count: None,
+            enabled_extension_names: None,
+            enabled_features: None,
+        }
+    }
+    pub fn next(mut self, next: T) -> Self {
+        self.next = Some(next);
+        self
+    }
+    pub fn flags(mut self, flags: u32) -> Self {
+        self.flags = Some(flags);
+        self
+    }
+    pub fn queue_create_info_count(mut self, queue_create_info_count: u32) -> Self {
+        self.queue_create_info_count = Some(queue_create_info_count);
+        self
+    }
+    pub fn queue_create_infos(mut self, queue_create_infos: DeviceQueueCreateInfo<T>) -> Self {
+        self.queue_create_infos = Some(queue_create_infos);
+        self
+    }
+    pub fn enabled_layer_count(mut self, enabled_layer_count: u32) -> Self {
+        self.enabled_layer_count = Some(enabled_layer_count);
+        self
+    }
+    pub fn enabled_layer_names(mut self, enabled_layer_names: Vec<&'a str>) -> Self {
+        self.enabled_layer_names = Some(enabled_layer_names);
+        self
+    }
+    pub fn enabled_extension_count(mut self, enabled_extension_count: u32) -> Self {
+        self.enabled_extension_count = Some(enabled_extension_count);
+        self
+    }
+    pub fn enabled_extension_names(mut self, enabled_extension_names: Vec<&'a str>) -> Self {
+        self.enabled_extension_names = Some(enabled_extension_names);
+        self
+    }
+    pub fn build(mut self) -> DeviceCreateInfo<'a, T> {
+        DeviceCreateInfo {
+            next: self.next,
+            flags: self.flags,
+            queue_create_info_count: self.queue_create_info_count,
+            queue_create_infos: self.queue_create_infos,
+            enabled_layer_count: self.enabled_layer_count,
+            enabled_layer_names: self.enabled_layer_names,
+            enabled_extension_count: self.enabled_extension_count,
+            enabled_extension_names: self.enabled_extension_names,
+            enabled_features: match self.enabled_features {
+                Some(e) => e,
+                None => PhysicalDeviceFeaturesBuilder::new(),
+            },
         }
     }
 }
