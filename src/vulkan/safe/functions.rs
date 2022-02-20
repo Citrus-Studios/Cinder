@@ -80,10 +80,14 @@ pub(crate) fn get_physical_device_queue_family_properties(
 
 #[test] 
 pub fn optional_surface_test() {
-    let instance = create_instance(None, None).unwrap();
-    let physical_devices = get_physical_devices(instance).unwrap();
-    let physical_device = physical_devices[0];
-    let properties = get_physical_device_properties(physical_device, instance);
+    use crate::vulkan::safe::instance_items::instance::InstanceBuilder;
+
+    let instance = InstanceBuilder::new()
+        .application_name("Triangle")
+        .build();
+    let physical_devices = PhysicalDevice::new(instance.clone()).pick_best_device();
+    let instance_clone = *instance.clone();
+    let properties = get_physical_device_properties(physical_devices.current_physical_device, instance_clone.instance);
     println!("{:?}", properties);
 }
 
