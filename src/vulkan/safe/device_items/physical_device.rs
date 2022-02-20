@@ -29,9 +29,9 @@ impl PhysicalDevice {
         self.current_physical_device = unsafe { self.rate_device_suitability(self.clone().physical_devices) };
         return self;
     }
-    pub fn pick_best_queue_family(&self, capiabilities: u32) -> QueueFamily {
+    pub fn pick_best_queue_family(&self, capabilities: u32) -> QueueFamily {
         let mut queue_family = QueueFamily::new();
-        queue_family.select_queue_family(self.clone(), capiabilities);
+        queue_family.select_queue_family(self.clone(), capabilities);
         return queue_family;
     }
     pub(crate) unsafe fn rate_device_suitability(&self, devices: Vec<VkPhysicalDevice>) -> VkPhysicalDevice {
