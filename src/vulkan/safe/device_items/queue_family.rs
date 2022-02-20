@@ -6,8 +6,8 @@ pub fn test_get_physical_device_queue_family_properties() {
     let instance = InstanceBuilder::new()
         .application_name("Triangle")
         .build();
-    let physical_device = PhysicalDevice::new(instance);
-    let _queue_family_properties = get_physical_device_queue_family_properties(physical_device.current_physical_device, physical_device.instance);
+    let physical_device = PhysicalDevice::new(instance).pick_best_device();
+    let _queue_family_properties = physical_device.pick_best_queue_family(1 | 2);
 }
 
 pub struct QueueFamily {
@@ -25,8 +25,9 @@ impl QueueFamily {
         let queue_family_properties = get_physical_device_queue_family_properties(device.current_physical_device, device.instance);
 
         for x in queue_family_properties.into_iter().enumerate() {
+            let support = physical_device_surface_support(device.current_physical_device, x.0 as u32, None, device.instance);
             if (x.1.queueFlags & capabilities) == capabilities 
-            && physical_device_surface_support(device.current_physical_device, x.0 as u32, None, device.instance) != false {
+            && support != false {
                 self.selected_queuefamily = Some(x.0 as u32);
                 break;
             }
