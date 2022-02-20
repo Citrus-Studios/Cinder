@@ -9,7 +9,7 @@ pub struct DeviceCreateInfo<'a, T: Clone> {
     next: Option<T>,
     flags: Option<u32>,
     queue_create_info_count: Option<u32>,
-    queue_create_infos: Option<DeviceQueueCreateInfo<T>>,
+    queue_create_infos: Option<Vec<DeviceQueueCreateInfo<T>>>,
     enabled_layer_count: Option<u32>,
     enabled_layer_names: Option<Vec<&'a str>>,
     enabled_extension_count: Option<u32>,
@@ -21,7 +21,7 @@ pub struct DeviceCreateInfoBuilder<'a, T: Clone> {
     next: Option<T>,
     flags: Option<u32>,
     queue_create_info_count: Option<u32>,
-    queue_create_infos: Option<DeviceQueueCreateInfo<T>>,
+    queue_create_infos: Option<Vec<DeviceQueueCreateInfo<T>>>,
     enabled_layer_count: Option<u32>,
     enabled_layer_names: Option<Vec<&'a str>>,
     enabled_extension_count: Option<u32>,
@@ -46,7 +46,7 @@ impl<'a, T: Clone> DeviceCreateInfo<'a, T> {
                 None => 0,
             }, 
             pQueueCreateInfos: match self.queue_create_infos.clone() {
-                Some(queue_create_infos) => &(queue_create_infos.into_raw()) as *const _,
+                Some(queue_create_infos) => queue_create_infos.as_ptr() as *const _,
                 None => ptr::null_mut(),
             },
             enabledLayerCount: match self.enabled_layer_count {
@@ -96,7 +96,7 @@ impl<'a, T: Clone> DeviceCreateInfoBuilder<'a, T> {
         self.queue_create_info_count = Some(queue_create_info_count);
         self
     }
-    pub fn queue_create_infos(mut self, queue_create_infos: DeviceQueueCreateInfo<T>) -> Self {
+    pub fn queue_create_infos(mut self, queue_create_infos: Vec<DeviceQueueCreateInfo<T>>) -> Self {
         self.queue_create_infos = Some(queue_create_infos);
         self
     }
