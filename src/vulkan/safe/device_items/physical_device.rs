@@ -47,6 +47,10 @@ impl PhysicalDevice {
                 break;
             }
         }
+        // fallback if fails to find a suitable device
+        if selected_device == std::mem::zeroed() {
+            selected_device = devices[0];
+        }
 
         return selected_device;
     }
