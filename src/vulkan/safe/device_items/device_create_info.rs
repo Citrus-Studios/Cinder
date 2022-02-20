@@ -116,7 +116,7 @@ impl<'a, T: Clone> DeviceCreateInfoBuilder<'a, T> {
         self.enabled_extension_names = Some(enabled_extension_names);
         self
     }
-    pub fn build(mut self) -> DeviceCreateInfo<'a, T> {
+    pub fn build(self) -> DeviceCreateInfo<'a, T> {
         DeviceCreateInfo {
             next: self.next,
             flags: self.flags,

@@ -565,7 +565,7 @@ impl PhysicalDeviceFeaturesBuilder {
         self.inheritedQueries = Some(inheritedQueries);
         self
     }
-    pub fn build(mut self) -> VkPhysicalDeviceFeatures {
+    pub fn build(self) -> VkPhysicalDeviceFeatures {
         return self.into_raw();
     }
 }
