@@ -26,7 +26,7 @@ impl PhysicalDevice {
         }
     }
     pub fn pick_best_device(mut self) -> Self {
-        self.current_physical_device = unsafe { self.clone().rate_device_suitability(self.clone().physical_devices) };
+        self.current_physical_device = unsafe { self.rate_device_suitability(self.clone().physical_devices) };
         return self;
     }
     pub fn pick_best_queue_family(&self, capiabilities: u32) -> QueueFamily {
