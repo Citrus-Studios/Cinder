@@ -5,7 +5,7 @@ use mira::{vulkan::{VkPhysicalDevice, VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU, VK
 
 use crate::{vulkan::safe::functions::{get_physical_devices, get_physical_device_properties}, match_error_codes::MatchErrorCode};
 
-use super::super::instance_items::instance::Instance;
+use super::{super::instance_items::instance::Instance, queue_family::QueueFamily};
 #[derive(Clone)]
 pub struct PhysicalDevice {
     pub(crate) physical_devices: Vec<VkPhysicalDevice>,
@@ -28,6 +28,11 @@ impl PhysicalDevice {
     pub fn pick_best_device(mut self) -> Self {
         self.current_physical_device = unsafe { self.clone().rate_device_suitability(self.clone().physical_devices) };
         return self;
+    }
+    pub fn pick_best_queue_family(&self, capiabilities: u32) -> QueueFamily {
+        let mut queue_family = QueueFamily::new();
+        queue_family.select_queue_family(self.clone(), capiabilities);
+        return queue_family;
     }
     pub(crate) unsafe fn rate_device_suitability(&self, devices: Vec<VkPhysicalDevice>) -> VkPhysicalDevice {
         let mut selected_device: VkPhysicalDevice = std::mem::zeroed();
