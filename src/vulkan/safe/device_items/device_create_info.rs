@@ -30,7 +30,7 @@ pub struct DeviceCreateInfoBuilder<'a, T: Clone> {
 }
 
 impl<'a, T: Clone> DeviceCreateInfo<'a, T> {
-    pub fn into_raw(&self) -> VkDeviceCreateInfo {
+    pub fn into_raw(self) -> VkDeviceCreateInfo {
         return VkDeviceCreateInfo { 
             sType: VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO, 
             pNext: match &self.next {
@@ -65,7 +65,7 @@ impl<'a, T: Clone> DeviceCreateInfo<'a, T> {
                 Some(enabled_extension_names) => enabled_extension_names.as_ptr() as *const _,
                 None => ptr::null(),
             },
-            pEnabledFeatures: &self.enabled_features.into_raw(),
+            pEnabledFeatures: &(self.enabled_features.build())
         }
     }
 }
@@ -114,6 +114,10 @@ impl<'a, T: Clone> DeviceCreateInfoBuilder<'a, T> {
     }
     pub fn enabled_extension_names(mut self, enabled_extension_names: Vec<&'a str>) -> Self {
         self.enabled_extension_names = Some(enabled_extension_names);
+        self
+    }
+    pub fn enabled_features(mut self, enabled_features: PhysicalDeviceFeaturesBuilder) -> Self {
+        self.enabled_features = Some(enabled_features);
         self
     }
     pub fn build(self) -> DeviceCreateInfo<'a, T> {
