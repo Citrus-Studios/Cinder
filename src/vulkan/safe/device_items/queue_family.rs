@@ -1,6 +1,3 @@
-use mira::vulkan::{VK_QUEUE_GRAPHICS_BIT, VK_QUEUE_COMPUTE_BIT};
-
-
 use super::{physical_device::PhysicalDevice, super::functions::{get_physical_device_queue_family_properties, physical_device_surface_support}};
 
 #[test]
@@ -24,10 +21,9 @@ impl QueueFamily {
         }
     }
 
-    pub fn select_queue_family(&mut self, device: PhysicalDevice) -> Self {
+    pub fn select_queue_family(&mut self, device: PhysicalDevice, capabilities: u32) -> Self {
         let queue_family_properties = get_physical_device_queue_family_properties(device.current_physical_device, device.instance);
 
-        let capabilities = VK_QUEUE_GRAPHICS_BIT | VK_QUEUE_COMPUTE_BIT;
         for x in queue_family_properties.into_iter().enumerate() {
             if (x.1.queueFlags & capabilities) == capabilities 
             && physical_device_surface_support(device.current_physical_device, x.0 as u32, None, device.instance) != false {
@@ -37,5 +33,8 @@ impl QueueFamily {
         }
 
         panic!("Physical Device not found");
+    }
+    pub fn get_selected_queue_family(&self) -> u32 {
+        self.selected_queuefamily.unwrap()
     }
 }
