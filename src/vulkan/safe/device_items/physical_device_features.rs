@@ -3,6 +3,7 @@ use mira::vulkan::VkPhysicalDeviceFeatures;
 
 // 🤢🤮🤮🤮🤮
 
+/// All of the possible physical device features in a struct, best described by the dev comment above
 pub struct PhysicalDeviceFeaturesBuilder {
     pub robustBufferAccess: Option<bool>,
     pub fullDrawIndexUint32: Option<bool>,
@@ -62,6 +63,7 @@ pub struct PhysicalDeviceFeaturesBuilder {
 }
 
 impl PhysicalDeviceFeaturesBuilder {
+    /// Puts our PhysicalDeviceFeaturesBuilder into a VkPhysicalDeviceFeatures
     pub fn into_raw(&self) -> VkPhysicalDeviceFeatures {
         VkPhysicalDeviceFeatures { 
             robustBufferAccess: match self.robustBufferAccess {
@@ -286,6 +288,16 @@ impl PhysicalDeviceFeaturesBuilder {
             },
          }
     }
+    /// An empty PhysicalDeviceFeaturesBuilder which we can put information into through the functions defined below
+    /// 
+    /// # Examples
+    /// 
+    /// ```rs
+    /// let physical_device_features = PhysicalDeviceFeaturesBuilder::new()
+    ///     .samplerAnisotropy(true)
+    ///     .shaderCullDistance(true)
+    ///     .build();
+    /// ```
     pub fn new() -> Self {
         Self {
             robustBufferAccess: None,
