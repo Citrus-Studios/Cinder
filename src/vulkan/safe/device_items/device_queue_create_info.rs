@@ -4,6 +4,7 @@ use std::ptr;
 use mira::vulkan::{VkDeviceQueueCreateInfo, VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO};
 
 #[derive(Clone)]
+/// This is our own DeviceQueueCreateInfo struct, leaving out any fields that are redundant (at least for our purposes)
 pub struct DeviceQueueCreateInfo<T: Clone> {
     next: Option<T>,
     flags: Option<u32>,
@@ -13,6 +14,7 @@ pub struct DeviceQueueCreateInfo<T: Clone> {
 }
 
 #[derive(Clone)]
+/// The builder for DeviceQueueCreateInfo
 pub struct DeviceQueueCreateInfoBuilder<T: Clone> {
     next: Option<T>,
     flags: Option<u32>,
@@ -21,7 +23,9 @@ pub struct DeviceQueueCreateInfoBuilder<T: Clone> {
     queue_priorities: Option<Vec<f32>>,
 }
 
+/// DeviceQueueCreateInfo implementation 
 impl<T: Clone> DeviceQueueCreateInfo<T> {
+    /// Puts our DeviceQueueCreateInfo into a VkDeviceQueueCreateInfo
     pub(crate) fn into_raw(self) -> VkDeviceQueueCreateInfo {
         return VkDeviceQueueCreateInfo {
             sType: VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO,
@@ -43,7 +47,18 @@ impl<T: Clone> DeviceQueueCreateInfo<T> {
     }
 }
 
+
 impl<T: Clone> DeviceQueueCreateInfoBuilder<T> {
+    /// An empty DeviceQueueCreateInfo which we can put information into through the functions defined below
+    /// 
+    /// # Examples
+    /// 
+    /// ```rs
+    /// // This is a bad example because it will seg fault (I think)
+    /// let device_queue_create_info = DeviceQueueCreateInfoBuilder::new()
+    ///     .flags(69)
+    ///     .build();
+    /// ```
     pub fn new() -> Self {
         DeviceQueueCreateInfoBuilder {
             next: None,
@@ -79,6 +94,7 @@ impl<T: Clone> DeviceQueueCreateInfoBuilder<T> {
         self
     }
 
+    /// "Builds" the DeviceQueueCreateInfo and returns it
     pub fn build(self) -> DeviceQueueCreateInfo<T> {
         DeviceQueueCreateInfo {
             next: self.next,
