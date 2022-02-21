@@ -94,14 +94,11 @@ pub fn optional_surface_test() {
 pub(crate) fn physical_device_surface_support(
     physical_device: VkPhysicalDevice,
     queue_family_index: u32,
-    surface: Option<VkSurfaceKHR>,
+    surface: VkSurfaceKHR,
     instance: VkInstance,
 ) -> bool {
     let mut supported = 0u32;
-    let result = vkGetPhysicalDeviceSurfaceSupportKHR(physical_device, queue_family_index, match surface {
-        Some(surface) => surface,
-        None => ptr::null_mut(),
-    }, &mut supported, Some(instance));
+    let result = vkGetPhysicalDeviceSurfaceSupportKHR(physical_device, queue_family_index, surface, &mut supported, Some(instance));
     match result {
         VK_SUCCESS => {},
         _ => {
