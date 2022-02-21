@@ -5,6 +5,8 @@ use mira::vulkan::{VkDeviceCreateInfo, VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO};
 
 use super::{physical_device_features::PhysicalDeviceFeaturesBuilder, device_queue_create_info::DeviceQueueCreateInfo};
 
+/// This is our own DeviceCreateInfo struct, leaving out any fields that are redundant (at least for our purposes)
+/// This simplifies the process slightly
 pub struct DeviceCreateInfo<'a, T: Clone> {
     next: Option<T>,
     flags: Option<u32>,
@@ -17,6 +19,7 @@ pub struct DeviceCreateInfo<'a, T: Clone> {
     enabled_features: PhysicalDeviceFeaturesBuilder,
 }
 
+/// The builder for DeviceCreateInfo, everything is an Option to make this safer
 pub struct DeviceCreateInfoBuilder<'a, T: Clone> {
     next: Option<T>,
     flags: Option<u32>,
@@ -29,7 +32,9 @@ pub struct DeviceCreateInfoBuilder<'a, T: Clone> {
     enabled_features: Option<PhysicalDeviceFeaturesBuilder>,
 }
 
+/// DeviceCreateInfo implementation 
 impl<'a, T: Clone> DeviceCreateInfo<'a, T> {
+    /// Puts our DeviceCreateInfo into a VkDeviceCreateInfo
     pub fn into_raw(self) -> VkDeviceCreateInfo {
         return VkDeviceCreateInfo { 
             sType: VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO, 
@@ -70,7 +75,14 @@ impl<'a, T: Clone> DeviceCreateInfo<'a, T> {
     }
 }
 
+/// Builder implementation
 impl<'a, T: Clone> DeviceCreateInfoBuilder<'a, T> {
+    /// An empty DeviceCreateInfo which we can put information into through the functions defined below
+    /// 
+    /// # Examples
+    /// 
+    /// ```rs
+    /// 
     pub fn new() -> Self {
         DeviceCreateInfoBuilder {
             next: None,
@@ -120,6 +132,7 @@ impl<'a, T: Clone> DeviceCreateInfoBuilder<'a, T> {
         self.enabled_features = Some(enabled_features);
         self
     }
+    /// "Builds" the DeviceCreateInfo and returns it safely
     pub fn build(self) -> DeviceCreateInfo<'a, T> {
         DeviceCreateInfo {
             next: self.next,
