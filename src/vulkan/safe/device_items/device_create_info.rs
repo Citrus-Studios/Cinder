@@ -82,7 +82,11 @@ impl<'a, T: Clone> DeviceCreateInfoBuilder<'a, T> {
     /// # Examples
     /// 
     /// ```rs
-    /// 
+    /// // This is a bad example because it will seg fault (I think)
+    /// let device_create_info = DeviceCreateInfoBuilder::new()
+    ///     .flags(69)
+    ///     .build();
+    /// ```
     pub fn new() -> Self {
         DeviceCreateInfoBuilder {
             next: None,
