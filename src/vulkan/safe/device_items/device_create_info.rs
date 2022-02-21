@@ -19,7 +19,7 @@ pub struct DeviceCreateInfo<'a, T: Clone> {
     enabled_features: PhysicalDeviceFeaturesBuilder,
 }
 
-/// The builder for DeviceCreateInfo, everything is an Option to make this safer
+/// The builder for DeviceCreateInfo
 pub struct DeviceCreateInfoBuilder<'a, T: Clone> {
     next: Option<T>,
     flags: Option<u32>,
@@ -82,7 +82,11 @@ impl<'a, T: Clone> DeviceCreateInfoBuilder<'a, T> {
     /// # Examples
     /// 
     /// ```rs
-    /// 
+    /// // This is a bad example because it will seg fault (I think)
+    /// let device_create_info = DeviceCreateInfoBuilder::new()
+    ///     .flags(69)
+    ///     .build();
+    /// ```
     pub fn new() -> Self {
         DeviceCreateInfoBuilder {
             next: None,
@@ -132,7 +136,7 @@ impl<'a, T: Clone> DeviceCreateInfoBuilder<'a, T> {
         self.enabled_features = Some(enabled_features);
         self
     }
-    /// "Builds" the DeviceCreateInfo and returns it safely
+    /// "Builds" the DeviceCreateInfo and returns it
     pub fn build(self) -> DeviceCreateInfo<'a, T> {
         DeviceCreateInfo {
             next: self.next,
