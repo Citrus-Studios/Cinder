@@ -16,6 +16,9 @@ pub mod vulkan {
             pub mod instance;
             pub mod instance_create_info;
         }
+        pub mod window_items {
+            pub mod surface_create_info;
+        }
         pub mod functions;
         pub mod window_surface;
     }
