@@ -1,6 +1,7 @@
 use std::{sync::Arc};
 
-use mira::{vulkan::{VkPhysicalDevice, VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU, VK_PHYSICAL_DEVICE_TYPE_VIRTUAL_GPU, VkInstance, VkPhysicalDeviceProperties}};
+use mira::{vulkan::{VkPhysicalDevice, VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU, VK_PHYSICAL_DEVICE_TYPE_VIRTUAL_GPU, VkInstance, VkPhysicalDeviceProperties, VkSurfaceKHR}};
+use sdl2::video::Window;
 
 
 use crate::{vulkan::safe::functions::{get_physical_devices, get_physical_device_properties}, match_error_codes::MatchErrorCode};
@@ -11,19 +12,26 @@ use super::{super::instance_items::instance::Instance, queue_family::QueueFamily
 pub struct PhysicalDevice {
     pub(crate) physical_devices: Vec<VkPhysicalDevice>,
     pub(crate) current_physical_device: VkPhysicalDevice,
-    pub(crate) instance: VkInstance
+    pub(crate) instance: VkInstance,
+    pub(crate) surface: VkSurfaceKHR
 }
 
 /// PhysicalDevice implementation
 impl PhysicalDevice {
     /// Gets the available physical devices (GPUs) and picks one to be the current
-    pub fn new(instance: Arc<Instance>) -> Self {
+    pub fn new(instance: Arc<Instance>, window: &Window) -> Self {
         let devices = get_physical_devices((*instance.clone()).instance);
+        let instance_raw = instance.instance as usize;
+
         match devices {
             Ok(devices) => PhysicalDevice {
                 physical_devices: devices.clone(),
                 current_physical_device: devices[0],
-                instance: (*instance.clone()).instance
+                instance: (*instance.clone()).instance,
+                surface: match window.vulkan_create_surface(instance_raw) {
+                    Ok(surface) => surface as VkSurfaceKHR,
+                    Err(e) =>  panic!("Failed To Create Vulkan Surface: {}", e)
+                }
             },
             Err(error) => panic!("Failed to get physical devices: {}", error.match_error_code()),
         }
@@ -36,7 +44,7 @@ impl PhysicalDevice {
     /// Picks the best QueueFamily
     pub fn pick_best_queue_family(&self, capabilities: u32) -> QueueFamily {
         let mut queue_family = QueueFamily::new();
-        queue_family.select_queue_family(self.clone(), capabilities);
+        queue_family.select_queue_family(self.clone(), capabilities, self.surface);
         return queue_family;
     }
     /// Rates a PhysicalDevice (GPU) based on what type it is
