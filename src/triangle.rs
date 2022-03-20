@@ -25,7 +25,7 @@ fn triangle() {
 
     let instance = InstanceBuilder::new()
         .application_name("Cinder")
-        .extensions(vec![vec!["VK_KHR_xlib_surface"], extensions].concat())
+        .extensions(extensions)
         .engine_name("None")
         .build();
 
