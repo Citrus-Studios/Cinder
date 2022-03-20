@@ -26,7 +26,7 @@ pub struct InstanceCreateInfo<'a, T, U> {
     pub flags: u32,
     pub pApplicationInfo: Option<ApplicationInfo<'a, U>>,
     pub ppEnabledLayerNames: Option<Vec<&'a str>>,
-    pub ppEnabledExtensionNames: Option<Vec<&'a str>>,
+    pub ppEnabledExtensionNames: Option<Vec<CString>>,
 }
 
 pub struct InstanceCreateInfoBuilder<'a, T, U> {
@@ -34,7 +34,7 @@ pub struct InstanceCreateInfoBuilder<'a, T, U> {
     pub flags: Option<u32>,
     pub pApplicationInfo: Option<ApplicationInfo<'a, U>>,
     pub ppEnabledLayerNames: Option<Vec<&'a str>>,
-    pub ppEnabledExtensionNames: Option<Vec<&'a str>>,
+    pub ppEnabledExtensionNames: Option<Vec<String>>,
 }
 
 impl<'a, T, U> InstanceCreateInfo<'a, T, U> {
@@ -70,14 +70,7 @@ impl<'a, T, U> InstanceCreateInfo<'a, T, U> {
                 None => 0,
             },
             ppEnabledExtensionNames: match self.ppEnabledExtensionNames {
-                Some(ref ppEnabledExtensionNames) => {
-                    let mut new_vec = vec![];
-                    for extension_name in ppEnabledExtensionNames {
-                        let x = CString::new(extension_name.as_bytes()).unwrap();
-                        new_vec.push(x.as_ptr());
-                    }
-                    new_vec.as_ptr()
-                },
+                Some(ref ppEnabledExtensionNames) => ppEnabledExtensionNames.as_ptr() as *const _,
                 None => ptr::null(),
             },
         };
@@ -110,8 +103,8 @@ impl<'a, T, U> InstanceCreateInfoBuilder<'a, T, U> {
         self.ppEnabledLayerNames = Some(enabled_layer_names);
         self
     }
-    pub fn enabled_extensions(mut self, enabled_extensions: Vec<&'a str>) -> Self {
-        self.ppEnabledExtensionNames = Some(enabled_extensions);
+    pub fn enabled_extensions(mut self, enabled_extensions: Option<Vec<String>>) -> Self {
+        self.ppEnabledExtensionNames = enabled_extensions;
         self
     }
     pub fn build(self) -> InstanceCreateInfo<'a, T, U> {
@@ -120,7 +113,14 @@ impl<'a, T, U> InstanceCreateInfoBuilder<'a, T, U> {
             flags: self.flags.unwrap_or(0),
             pApplicationInfo: self.pApplicationInfo,
             ppEnabledLayerNames: self.ppEnabledLayerNames,
-            ppEnabledExtensionNames: self.ppEnabledExtensionNames,
+            ppEnabledExtensionNames: match self.ppEnabledExtensionNames {
+                Some(ref ppEnabledExtensionNames) => {
+                    Some(ppEnabledExtensionNames.into_iter().map(|x| {
+                        CString::new(x.as_bytes()).unwrap()
+                    }).collect())
+                },
+                None => None,
+            },
         }
     }
 }
