@@ -21,6 +21,7 @@ pub struct InstanceBuilder<'a> {
     vulkan_version: Option<u32>, 
     application_version: Option<u32>,
     engine_version: Option<u32>,
+    extensions: Option<Vec<String>>,
 }
 
 impl Instance {
@@ -30,6 +31,7 @@ impl Instance {
         vulkan_version: Option<u32>, 
         application_version: Option<u32>,
         engine_version: Option<u32>,
+        extensions: Option<Vec<String>>
     ) -> Arc<Self> {
         // Make the application info
         let application_name = application_name.unwrap_or("Cinder");
@@ -41,9 +43,12 @@ impl Instance {
             .application_version(application_version.unwrap_or(VK_MAKE_API_VERSION(0, 1, 0, 0)))
             .engine_version(engine_version.unwrap_or(VK_MAKE_API_VERSION(0, 1, 0, 0)))
             .build();
-        
         // Make the instance create info
         let instance_create_info = InstanceCreateInfoBuilder::<(), ()>::new()
+            .enabled_extensions(match extensions {
+                Some(e) => Some(e),
+                None => None
+            })
             .application_info(application_info)
             .build();
 
@@ -63,6 +68,7 @@ impl<'a> InstanceBuilder<'a> {
             vulkan_version: None,
             application_version: None,
             engine_version: None,
+            extensions: None
         }
     }
     pub fn application_name(mut self, application_name: &'a str) -> Self {
@@ -85,6 +91,10 @@ impl<'a> InstanceBuilder<'a> {
         self.engine_version = Some(VK_MAKE_API_VERSION(variant, major, minor, patch));
         self
     }
+    pub fn extensions(mut self, extensions: Vec<&'a str>) -> Self {
+        self.extensions = Some(extensions.into_iter().map(|x| x.to_string()).collect::<Vec<String>>());
+        self
+    }
     pub fn build(self) -> Arc<Instance> {
         Instance::new(
             self.application_name,
@@ -92,6 +102,7 @@ impl<'a> InstanceBuilder<'a> {
             self.vulkan_version,
             self.application_version,
             self.engine_version,
+            self.extensions
         )
     }
 }
