@@ -13,6 +13,7 @@ use super::{application_info::ApplicationInfoBuilder, instance_create_info::Inst
 #[derive(Clone, Copy)]
 pub struct Instance {
     pub(crate) instance: VkInstance,
+    create_info: VkInstanceCreateInfo,
 }
 
 pub struct InstanceBuilder<'a> {
@@ -51,10 +52,10 @@ impl Instance {
             })
             .application_info(application_info)
             .build();
-
-        let instance_result = create_instance(Some(instance_create_info.into_raw()), None);
+        let create_info = instance_create_info.into_raw();
+        let instance_result = create_instance(Some(&create_info), None);
         match instance_result {
-            Ok(instance) => Arc::new(Instance { instance }),
+            Ok(instance) => Arc::new(Instance { instance, create_info }),
             Err(error) => panic!("Failed to create instance: {:?}", error.match_error_code()),
         }
     }
