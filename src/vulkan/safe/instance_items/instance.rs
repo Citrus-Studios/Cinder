@@ -1,6 +1,6 @@
 use std::{sync::Arc};
 
-use mira::{vulkan::{self as vk}};
+use mira::{vulkan::{self as vk, VkInstanceCreateInfo}};
 #[allow(unused_imports)]
 use const_cstr::*;
 use vk::{VkInstance, VK_MAKE_API_VERSION};
