@@ -3,38 +3,27 @@ use std::{ptr, ffi::CString};
 
 use mira::vulkan::{VkApplicationInfo, VK_STRUCTURE_TYPE_APPLICATION_INFO, VK_MAKE_API_VERSION};
 
-#[test]
-fn application_info_test() {
-    let app_info = ApplicationInfoBuilder::<()>::new()
-        .application_name("Triangle")
-        .engine_name("None")
-        .application_version(VK_MAKE_API_VERSION(0, 1, 0, 0))
-        .engine_version(VK_MAKE_API_VERSION(0, 1, 0, 0))
-        .build();
-    let _raw_app_info = app_info.into_raw();
-}
-
-
-pub struct ApplicationInfo<'a, T> {
+#[derive(Clone)]
+pub struct ApplicationInfo<T> {
     next: Option<T>,
-    application_name: Option<&'a str>,
+    application_name: Option<String>,
     application_version: u32,
-    engine_name: Option<&'a str>,
+    engine_name: Option<String>,
     engine_version: u32,
     vulkan_version: u32,
 }
 
-pub struct ApplicationInfoBuilder<'a, T> {
+pub struct ApplicationInfoBuilder<T> {
     next: Option<T>,
-    application_name: Option<&'a str>,
+    application_name: Option<String>,
     application_version: Option<u32>,
-    engine_name: Option<&'a str>,
+    engine_name: Option<String>,
     engine_version: Option<u32>,
     vulkan_version: Option<u32>,
 }
 
 
-impl<'a, T> ApplicationInfo<'a, T> {
+impl<T> ApplicationInfo<T> {
     pub(crate) fn into_raw(self) -> VkApplicationInfo {
         let app_info: VkApplicationInfo = VkApplicationInfo {
             sType: VK_STRUCTURE_TYPE_APPLICATION_INFO,
@@ -70,7 +59,7 @@ impl<'a, T> ApplicationInfo<'a, T> {
     }
 }
 
-impl<'a, T> ApplicationInfoBuilder<'a, T> {
+impl<T> ApplicationInfoBuilder<T> {
     pub fn new() -> Self {
         ApplicationInfoBuilder {
             next: None,
@@ -85,7 +74,7 @@ impl<'a, T> ApplicationInfoBuilder<'a, T> {
         self.next = Some(next);
         self
     }
-    pub fn application_name(mut self, application_name: &'a str) -> Self {
+    pub fn application_name(mut self, application_name: String) -> Self {
         self.application_name = Some(application_name);
         self
     }
@@ -93,7 +82,7 @@ impl<'a, T> ApplicationInfoBuilder<'a, T> {
         self.application_version = Some(application_version);
         self
     }
-    pub fn engine_name(mut self, engine_name: &'a str) -> Self {
+    pub fn engine_name(mut self, engine_name: String) -> Self {
         self.engine_name = Some(engine_name);
         self
     }
@@ -105,7 +94,7 @@ impl<'a, T> ApplicationInfoBuilder<'a, T> {
         self.vulkan_version = Some(vulkan_version);
         self
     }
-    pub fn build(self) -> ApplicationInfo<'a, T> {
+    pub fn build(self) -> ApplicationInfo<T> {
         ApplicationInfo {
             next: self.next,
             application_name: self.application_name,
