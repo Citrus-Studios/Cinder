@@ -11,18 +11,18 @@ use super::device_items::device_create_info::DeviceCreateInfo;
 use super::device_items::physical_device::PhysicalDevice;
 
 pub(crate) fn create_instance(
-    create_info: Option<VkInstanceCreateInfo>, 
-    allocator: Option<VkAllocationCallbacks>, 
+    create_info: Option<&VkInstanceCreateInfo>, 
+    allocator: Option<&mut VkAllocationCallbacks>, 
 ) -> Result<VkInstance, i32> {
     unsafe {
         let mut instance: VkInstance = zeroed();
         let result = vkCreateInstance(
             match create_info {
-                Some(create_info) => &create_info as *const _,
+                Some(create_info) => create_info as *const _,
                 None => ptr::null(),
             },
             match allocator {
-                Some(mut allocator) => &mut allocator as *mut _,
+                Some(allocator) => allocator as *mut _,
                 None => ptr::null_mut(),
             },
             &mut instance,
