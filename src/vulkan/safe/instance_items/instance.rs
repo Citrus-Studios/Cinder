@@ -1,19 +1,20 @@
-use std::sync::Arc;
+use std::{sync::Arc, ptr};
 
-use mira::{vulkan::{self as vk, VkInstanceCreateInfo}};
 #[allow(unused_imports)]
 use const_cstr::*;
+use mira::vulkan::{self as vk, VkAllocationCallbacks, VkInstanceCreateInfo};
 use vk::{VkInstance, VK_MAKE_API_VERSION};
 
-use crate::match_error_codes::MatchErrorCode;
+use crate::{match_error_codes::MatchErrorCode, vulkan::r#unsafe::unsafe_functions::vkDestroyInstance};
 
 use super::{
     super::functions::create_instance, application_info::ApplicationInfoBuilder,
-    instance_create_info::{InstanceCreateInfoBuilder},
+    instance_create_info::InstanceCreateInfoBuilder,
 };
 
 pub struct Instance {
     pub(crate) instance: VkInstance,
+    pub(crate) allocation_callbacks: *const VkAllocationCallbacks,
     #[allow(dead_code)]
     create_info: VkInstanceCreateInfo,
 }
@@ -60,7 +61,11 @@ impl Instance {
         let create_info = instance_create_info.into_raw();
         let instance_result = create_instance(Some(&create_info), None);
         match instance_result {
-            Ok(instance) => Arc::new(Instance { instance, create_info }),
+            Ok(instance) => Arc::new(Instance {
+                instance,
+                create_info,
+                allocation_callbacks: ptr::null()
+            }),
             Err(error) => panic!("Failed to create instance: {:?}", error.match_error_code()),
         }
     }
@@ -126,5 +131,11 @@ impl<'a> InstanceBuilder<'a> {
             self.extensions,
             self.layers,
         )
+    }
+}
+
+impl Drop for Instance {
+    fn drop(&mut self) {
+        vkDestroyInstance(self.instance, self.allocation_callbacks, None);
     }
 }
