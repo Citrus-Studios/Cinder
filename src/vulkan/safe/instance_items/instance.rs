@@ -9,11 +9,12 @@ use crate::match_error_codes::MatchErrorCode;
 
 use super::{
     super::functions::create_instance, application_info::ApplicationInfoBuilder,
-    instance_create_info::{InstanceCreateInfoBuilder, InstanceCreateInfo},
+    instance_create_info::{InstanceCreateInfoBuilder},
 };
 
 pub struct Instance {
     pub(crate) instance: VkInstance,
+    #[allow(dead_code)]
     create_info: VkInstanceCreateInfo,
 }
 
