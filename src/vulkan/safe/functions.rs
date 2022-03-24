@@ -18,11 +18,11 @@ pub(crate) fn create_instance(
         let mut instance: VkInstance = zeroed();
         let result = vkCreateInstance(
             match create_info {
-                Some(create_info) => create_info as *const _,
+                Some(create_info) => create_info,
                 None => ptr::null(),
             },
             match allocator {
-                Some(allocator) => allocator as *mut _,
+                Some(allocator) => allocator,
                 None => ptr::null_mut(),
             },
             &mut instance,
