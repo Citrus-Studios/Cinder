@@ -1,9 +1,9 @@
 pub trait MatchErrorCode<'a> {
-    fn match_error_code(self) -> &'a str;
+    fn match_vulkan_error_code(self) -> &'a str;
 }
 
 impl<'a> MatchErrorCode<'a> for i32 {
-    fn match_error_code(self) -> &'a str {
+    fn match_vulkan_error_code(self) -> &'a str {
         match self {
             0 => "Success",
             1 => "Not Ready",
