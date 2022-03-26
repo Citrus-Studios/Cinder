@@ -18,8 +18,6 @@ fn main() {
     let mut extensions = unsafe { zeroed_vec(count as usize) };
     unsafe { SDL_Vulkan_GetInstanceExtensions(window.raw(), &mut count, extensions.as_mut_ptr()) };
 
-    
-
     let extensions = extensions.into_iter().map(|x| {
         unsafe { std::ffi::CStr::from_ptr(x).to_str().unwrap() }
     }).collect();

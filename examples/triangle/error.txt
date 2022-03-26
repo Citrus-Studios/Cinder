@@ -1,0 +1,142 @@
+==47414== Memcheck, a memory error detector
+==47414== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==47414== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==47414== Command: ./target/debug/triangle
+==47414== 
+==47414== Invalid read of size 8
+==47414==    at 0x5BB3CB0: vkCreateInstance (in /usr/lib/libvulkan.so.1.3.208)
+==47414==    by 0x12A8D6: cinder::vulkan::unsafe::unsafe_functions::vkCreateInstance (unsafe_functions.rs:28)
+==47414==    by 0x1264D0: cinder::vulkan::safe::functions::create_instance (functions.rs:19)
+==47414==    by 0x11E98C: cinder::vulkan::safe::instance_items::instance::Instance::new (instance.rs:62)
+==47414==    by 0x11F0C5: cinder::vulkan::safe::instance_items::instance::InstanceBuilder::build (instance.rs:125)
+==47414==    by 0x1169EA: triangle::main (main.rs:26)
+==47414==    by 0x118B6A: core::ops::function::FnOnce::call_once (function.rs:227)
+==47414==    by 0x11636D: std::sys_common::backtrace::__rust_begin_short_backtrace (backtrace.rs:122)
+==47414==    by 0x119310: std::rt::lang_start::{{closure}} (rt.rs:145)
+==47414==    by 0x1509F0: std::rt::lang_start_internal (function.rs:259)
+==47414==    by 0x1192DF: std::rt::lang_start (rt.rs:144)
+==47414==    by 0x116ABB: main (in /run/media/lonnon/Programming/Coding Shit/Rust/Act5/cinder/examples/triangle/target/debug/triangle)
+==47414==  Address 0x8b011c0 is 0 bytes inside a block of size 8 free'd
+==47414==    at 0x484827F: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==47414==    by 0x12E6FA: alloc::alloc::dealloc (alloc.rs:105)
+==47414==    by 0x12EE8A: <alloc::alloc::Global as core::alloc::Allocator>::deallocate (alloc.rs:242)
+==47414==    by 0x12D11A: <alloc::raw_vec::RawVec<T,A> as core::ops::drop::Drop>::drop (raw_vec.rs:479)
+==47414==    by 0x13105A: core::ptr::drop_in_place<alloc::raw_vec::RawVec<*const i8>> (mod.rs:188)
+==47414==    by 0x131003: core::ptr::drop_in_place<alloc::vec::Vec<*const i8>> (mod.rs:188)
+==47414==    by 0x12101F: cinder::vulkan::safe::instance_items::instance_create_info::InstanceCreateInfo<T,U>::into_raw (instance_create_info.rs:49)
+==47414==    by 0x11E959: cinder::vulkan::safe::instance_items::instance::Instance::new (instance.rs:61)
+==47414==    by 0x11F0C5: cinder::vulkan::safe::instance_items::instance::InstanceBuilder::build (instance.rs:125)
+==47414==    by 0x1169EA: triangle::main (main.rs:26)
+==47414==    by 0x118B6A: core::ops::function::FnOnce::call_once (function.rs:227)
+==47414==    by 0x11636D: std::sys_common::backtrace::__rust_begin_short_backtrace (backtrace.rs:122)
+==47414==  Block was alloc'd at
+==47414==    at 0x4845899: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==47414==    by 0x12E69B: alloc::alloc::alloc (alloc.rs:87)
+==47414==    by 0x12E836: alloc::alloc::Global::alloc_impl (alloc.rs:169)
+==47414==    by 0x12EDC9: <alloc::alloc::Global as core::alloc::Allocator>::allocate (alloc.rs:229)
+==47414==    by 0x12BBEB: alloc::raw_vec::RawVec<T,A>::allocate_in (raw_vec.rs:185)
+==47414==    by 0x12B6DC: alloc::raw_vec::RawVec<T,A>::with_capacity_in (raw_vec.rs:132)
+==47414==    by 0x131F33: alloc::vec::Vec<T,A>::with_capacity_in (mod.rs:609)
+==47414==    by 0x11CC46: alloc::vec::Vec<T>::with_capacity (mod.rs:470)
+==47414==    by 0x11BAFA: <alloc::vec::Vec<T> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<T,I>>::from_iter (spec_from_iter_nested.rs:54)
+==47414==    by 0x11BFBA: <alloc::vec::Vec<T> as alloc::vec::spec_from_iter::SpecFromIter<T,I>>::from_iter (spec_from_iter.rs:33)
+==47414==    by 0x11D636: <alloc::vec::Vec<T> as core::iter::traits::collect::FromIterator<T>>::from_iter (mod.rs:2552)
+==47414==    by 0x129E8A: core::iter::traits::iterator::Iterator::collect (iterator.rs:1778)
+==47414== 
+==47414== Invalid read of size 1
+==47414==    at 0x5BB80D1: ??? (in /usr/lib/libvulkan.so.1.3.208)
+==47414==    by 0x5BB3CC9: vkCreateInstance (in /usr/lib/libvulkan.so.1.3.208)
+==47414==    by 0x12A8D6: cinder::vulkan::unsafe::unsafe_functions::vkCreateInstance (unsafe_functions.rs:28)
+==47414==    by 0x1264D0: cinder::vulkan::safe::functions::create_instance (functions.rs:19)
+==47414==    by 0x11E98C: cinder::vulkan::safe::instance_items::instance::Instance::new (instance.rs:62)
+==47414==    by 0x11F0C5: cinder::vulkan::safe::instance_items::instance::InstanceBuilder::build (instance.rs:125)
+==47414==    by 0x1169EA: triangle::main (main.rs:26)
+==47414==    by 0x118B6A: core::ops::function::FnOnce::call_once (function.rs:227)
+==47414==    by 0x11636D: std::sys_common::backtrace::__rust_begin_short_backtrace (backtrace.rs:122)
+==47414==    by 0x119310: std::rt::lang_start::{{closure}} (rt.rs:145)
+==47414==    by 0x1509F0: std::rt::lang_start_internal (function.rs:259)
+==47414==    by 0x1192DF: std::rt::lang_start (rt.rs:144)
+==47414==  Address 0x93fb380 is 0 bytes inside a block of size 28 free'd
+==47414==    at 0x484827F: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==47414==    by 0x138D2A: alloc::alloc::dealloc (alloc.rs:105)
+==47414==    by 0x138D8A: <alloc::alloc::Global as core::alloc::Allocator>::deallocate (alloc.rs:242)
+==47414==    by 0x138EB8: alloc::alloc::box_free (alloc.rs:340)
+==47414==    by 0x13848F: core::ptr::drop_in_place<alloc::boxed::Box<[u8]>> (mod.rs:188)
+==47414==    by 0x13843F: core::ptr::drop_in_place<std::ffi::c_str::CString> (mod.rs:188)
+==47414==    by 0x1201BE: core::ptr::drop_in_place<[std::ffi::c_str::CString]> (mod.rs:188)
+==47414==    by 0x120C14: <alloc::vec::Vec<T,A> as core::ops::drop::Drop>::drop (mod.rs:2821)
+==47414==    by 0x120346: core::ptr::drop_in_place<alloc::vec::Vec<std::ffi::c_str::CString>> (mod.rs:188)
+==47414==    by 0x1205C2: core::ptr::drop_in_place<core::option::Option<alloc::vec::Vec<std::ffi::c_str::CString>>> (mod.rs:188)
+==47414==    by 0x1212A5: cinder::vulkan::safe::instance_items::instance_create_info::InstanceCreateInfo<T,U>::into_raw (instance_create_info.rs:65)
+==47414==    by 0x11E959: cinder::vulkan::safe::instance_items::instance::Instance::new (instance.rs:61)
+==47414==  Block was alloc'd at
+==47414==    at 0x4845899: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==47414==    by 0x14C38F: <&str as std::ffi::c_str::CString::new::SpecNewImpl>::spec_new_impl (alloc.rs:87)
+==47414==    by 0x13C01A: std::ffi::c_str::CString::new (c_str.rs:430)
+==47414==    by 0x121B83: cinder::vulkan::safe::instance_items::instance_create_info::InstanceCreateInfoBuilder<T,U>::build::{{closure}} (instance_create_info.rs:107)
+==47414==    by 0x12879C: core::iter::adapters::map::map_fold::{{closure}} (map.rs:84)
+==47414==    by 0x1278C2: core::iter::traits::iterator::Iterator::fold (iterator.rs:2285)
+==47414==    by 0x128E81: <core::iter::adapters::map::Map<I,F> as core::iter::traits::iterator::Iterator>::fold (map.rs:124)
+==47414==    by 0x129D42: core::iter::traits::iterator::Iterator::for_each (iterator.rs:773)
+==47414==    by 0x11C1BA: <alloc::vec::Vec<T,A> as alloc::vec::spec_extend::SpecExtend<T,I>>::spec_extend (spec_extend.rs:40)
+==47414==    by 0x11BC8F: <alloc::vec::Vec<T> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<T,I>>::from_iter (spec_from_iter_nested.rs:62)
+==47414==    by 0x11B5BA: alloc::vec::source_iter_marker::<impl alloc::vec::spec_from_iter::SpecFromIter<T,I> for alloc::vec::Vec<T>>::from_iter (source_iter_marker.rs:31)
+==47414==    by 0x11D710: <alloc::vec::Vec<T> as core::iter::traits::collect::FromIterator<T>>::from_iter (mod.rs:2552)
+==47414== 
+==47414== Invalid read of size 1
+==47414==    at 0x484CBD4: strcmp (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==47414==    by 0x5BB3D1B: vkCreateInstance (in /usr/lib/libvulkan.so.1.3.208)
+==47414==    by 0x12A8D6: cinder::vulkan::unsafe::unsafe_functions::vkCreateInstance (unsafe_functions.rs:28)
+==47414==    by 0x1264D0: cinder::vulkan::safe::functions::create_instance (functions.rs:19)
+==47414==    by 0x11E98C: cinder::vulkan::safe::instance_items::instance::Instance::new (instance.rs:62)
+==47414==    by 0x11F0C5: cinder::vulkan::safe::instance_items::instance::InstanceBuilder::build (instance.rs:125)
+==47414==    by 0x1169EA: triangle::main (main.rs:26)
+==47414==    by 0x118B6A: core::ops::function::FnOnce::call_once (function.rs:227)
+==47414==    by 0x11636D: std::sys_common::backtrace::__rust_begin_short_backtrace (backtrace.rs:122)
+==47414==    by 0x119310: std::rt::lang_start::{{closure}} (rt.rs:145)
+==47414==    by 0x1509F0: std::rt::lang_start_internal (function.rs:259)
+==47414==    by 0x1192DF: std::rt::lang_start (rt.rs:144)
+==47414==  Address 0x93fb380 is 0 bytes inside a block of size 28 free'd
+==47414==    at 0x484827F: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==47414==    by 0x138D2A: alloc::alloc::dealloc (alloc.rs:105)
+==47414==    by 0x138D8A: <alloc::alloc::Global as core::alloc::Allocator>::deallocate (alloc.rs:242)
+==47414==    by 0x138EB8: alloc::alloc::box_free (alloc.rs:340)
+==47414==    by 0x13848F: core::ptr::drop_in_place<alloc::boxed::Box<[u8]>> (mod.rs:188)
+==47414==    by 0x13843F: core::ptr::drop_in_place<std::ffi::c_str::CString> (mod.rs:188)
+==47414==    by 0x1201BE: core::ptr::drop_in_place<[std::ffi::c_str::CString]> (mod.rs:188)
+==47414==    by 0x120C14: <alloc::vec::Vec<T,A> as core::ops::drop::Drop>::drop (mod.rs:2821)
+==47414==    by 0x120346: core::ptr::drop_in_place<alloc::vec::Vec<std::ffi::c_str::CString>> (mod.rs:188)
+==47414==    by 0x1205C2: core::ptr::drop_in_place<core::option::Option<alloc::vec::Vec<std::ffi::c_str::CString>>> (mod.rs:188)
+==47414==    by 0x1212A5: cinder::vulkan::safe::instance_items::instance_create_info::InstanceCreateInfo<T,U>::into_raw (instance_create_info.rs:65)
+==47414==    by 0x11E959: cinder::vulkan::safe::instance_items::instance::Instance::new (instance.rs:61)
+==47414==  Block was alloc'd at
+==47414==    at 0x4845899: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==47414==    by 0x14C38F: <&str as std::ffi::c_str::CString::new::SpecNewImpl>::spec_new_impl (alloc.rs:87)
+==47414==    by 0x13C01A: std::ffi::c_str::CString::new (c_str.rs:430)
+==47414==    by 0x121B83: cinder::vulkan::safe::instance_items::instance_create_info::InstanceCreateInfoBuilder<T,U>::build::{{closure}} (instance_create_info.rs:107)
+==47414==    by 0x12879C: core::iter::adapters::map::map_fold::{{closure}} (map.rs:84)
+==47414==    by 0x1278C2: core::iter::traits::iterator::Iterator::fold (iterator.rs:2285)
+==47414==    by 0x128E81: <core::iter::adapters::map::Map<I,F> as core::iter::traits::iterator::Iterator>::fold (map.rs:124)
+==47414==    by 0x129D42: core::iter::traits::iterator::Iterator::for_each (iterator.rs:773)
+==47414==    by 0x11C1BA: <alloc::vec::Vec<T,A> as alloc::vec::spec_extend::SpecExtend<T,I>>::spec_extend (spec_extend.rs:40)
+==47414==    by 0x11BC8F: <alloc::vec::Vec<T> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<T,I>>::from_iter (spec_from_iter_nested.rs:62)
+==47414==    by 0x11B5BA: alloc::vec::source_iter_marker::<impl alloc::vec::spec_from_iter::SpecFromIter<T,I> for alloc::vec::Vec<T>>::from_iter (source_iter_marker.rs:31)
+==47414==    by 0x11D710: <alloc::vec::Vec<T> as core::iter::traits::collect::FromIterator<T>>::from_iter (mod.rs:2552)
+==47414== 
+thread 'main' panicked at 'Failed to create instance: "Layer Not Present"', /run/media/lonnon/Programming/Coding Shit/Rust/Act5/cinder/src/vulkan/safe/instance_items/instance.rs:69:27
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+==47414== 
+==47414== HEAP SUMMARY:
+==47414==     in use at exit: 238,561 bytes in 1,915 blocks
+==47414==   total heap usage: 29,969 allocs, 28,054 frees, 672,066,236 bytes allocated
+==47414== 
+==47414== LEAK SUMMARY:
+==47414==    definitely lost: 8,520 bytes in 30 blocks
+==47414==    indirectly lost: 162,636 bytes in 895 blocks
+==47414==      possibly lost: 0 bytes in 0 blocks
+==47414==    still reachable: 67,405 bytes in 990 blocks
+==47414==         suppressed: 0 bytes in 0 blocks
+==47414== Rerun with --leak-check=full to see details of leaked memory
+==47414== 
+==47414== For lists of detected and suppressed errors, rerun with: -s
+==47414== ERROR SUMMARY: 7 errors from 3 contexts (suppressed: 0 from 0)
