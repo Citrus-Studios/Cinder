@@ -71,6 +71,7 @@ impl SafeApplicationInfo {
         engine_version: &str,
         api_version: &str,
     ) -> Self {
+        // Split the application_version and make sure it contains 3 or more elements
         let application_version = application_version
             .split(".")
             .map(|x| x.parse::<u8>().unwrap())
@@ -82,6 +83,8 @@ impl SafeApplicationInfo {
             application_version[1],
             application_version[2],
         );
+
+        // Split the engine_version and make sure it contains 3 or more elements
         let engine_version = engine_version
             .split(".")
             .map(|x| x.parse::<u8>().unwrap())
@@ -89,6 +92,8 @@ impl SafeApplicationInfo {
         assert!(3 <= engine_version.len());
         let engine_version =
             make_api_version(0, engine_version[0], engine_version[1], engine_version[2]);
+
+        // Split the api_version and make sure it contains 3 or more elements
         let api_version = api_version
             .split(".")
             .map(|x| x.parse::<u8>().unwrap())
@@ -100,6 +105,7 @@ impl SafeApplicationInfo {
             api_version[2],
             api_version[3],
         );
+
         Self {
             application_name: application_name.to_string(),
             engine_name: engine_name.to_string(),
