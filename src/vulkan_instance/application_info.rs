@@ -10,6 +10,17 @@ pub struct SafeApplicationInfo {
 }
 
 impl SafeApplicationInfo {
+    /// Creates a new SafeApplicationInfo from an application_name, engine_name, application_version, engine_version and api_version
+    ///
+    /// ```rust
+    /// use cinder::vulkan_instance::application_info::SafeApplicationInfo;
+    /// use cinder::functions::make_api_version;
+    ///
+    /// let vulkan_version = make_api_version(0, 1, 0, 0);
+    /// let engine_version = make_api_version(0, 1, 0, 0);
+    /// let application_version = make_api_version(0, 1, 0, 0);
+    /// let info = SafeApplicationInfo::new("Application Name", "Engine Name", application_version, engine_version, vulkan_version);
+    /// ```
     pub fn new(
         application_name: &str,
         engine_name: &str,
@@ -25,6 +36,14 @@ impl SafeApplicationInfo {
             api_version,
         }
     }
+    /// Creates a new SafeApplicationInfo from an application_name, engine_name, application_version, engine_version and api_version
+    ///
+    /// ```rust
+    /// use cinder::vulkan_instance::application_info::SafeApplicationInfo;
+    /// use cinder::functions::make_api_version;
+    ///
+    /// let info = SafeApplicationInfo::new_strings("Application Name", "Engine Name", "1.0.0", "1.0.0", "0.1.0.0");
+    /// ```
     pub fn new_strings(
         application_name: &str,
         engine_name: &str,
