@@ -1,3 +1,16 @@
+//! Safe Wrapper for Vulkan Application Info which is used for Vulkan Instances
+//!
+//! # Example
+//! ```rust
+//! use cinder::vulkan_instance::application_info::SafeApplicationInfo;
+//! use cinder::functions::make_api_version;
+//!
+//! let vulkan_version = make_api_version(0, 1, 0, 0);
+//! let engine_version = make_api_version(0, 1, 0, 0);
+//! let application_version = make_api_version(0, 1, 0, 0);
+//! let info = SafeApplicationInfo::new("Application Name", "Engine Name", application_version, engine_version, vulkan_version);
+//! ```
+
 use crate::functions::make_api_version;
 
 /// Safe Wrapper for Application Info to prevent unsafe headaches.
