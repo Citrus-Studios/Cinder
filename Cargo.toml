@@ -6,6 +6,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dev-dependencies]
+sdl2 = "0.35.2"
 
 [dependencies]
 mira = "0.1.13"

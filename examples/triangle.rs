@@ -1,5 +1,6 @@
 use std::time::Duration;
 
+use cinder::zeroed_vec;
 use sdl2::{event::Event, keyboard::Keycode, sys::SDL_Vulkan_GetInstanceExtensions};
 
 fn main() {
