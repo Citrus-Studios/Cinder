@@ -1,4 +1,4 @@
-use std::time::Duration;
+use std::{thread::sleep, time::Duration};
 
 use cinder::zeroed_vec;
 use sdl2::{event::Event, keyboard::Keycode, sys::SDL_Vulkan_GetInstanceExtensions};
@@ -22,6 +22,8 @@ fn main() {
 
     let mut event_pump = sdl_context.event_pump().unwrap();
 
+    let fps = Duration::from_nanos(016666);
+
     'running: loop {
         for event in event_pump.poll_iter() {
             match event {
@@ -34,7 +36,6 @@ fn main() {
             }
         }
 
-        std::thread::sleep(Duration::from_nanos(016666));
-        // The rest of the game loop goes here...
+        sleep(fps);
     }
 }
