@@ -38,6 +38,7 @@ impl<'a> SafeCreateInfo<'a> {
     }
 }
 
+/// Unsafe version of CreateInfo
 pub struct CreateInfo {
     pub application_info: *const SafeApplicationInfo,
     pub enabled_layer_count: u32,
