@@ -76,7 +76,7 @@ impl SafeApplicationInfo {
             .split(".")
             .map(|x| x.parse::<u8>().unwrap())
             .collect::<Vec<u8>>();
-        assert!(3 <= application_version.len());
+        assert!(3 == application_version.len());
         let application_version = make_api_version(
             0,
             application_version[0],
@@ -89,7 +89,7 @@ impl SafeApplicationInfo {
             .split(".")
             .map(|x| x.parse::<u8>().unwrap())
             .collect::<Vec<u8>>();
-        assert!(3 <= engine_version.len());
+        assert!(3 == engine_version.len());
         let engine_version =
             make_api_version(0, engine_version[0], engine_version[1], engine_version[2]);
 
@@ -98,7 +98,7 @@ impl SafeApplicationInfo {
             .split(".")
             .map(|x| x.parse::<u8>().unwrap())
             .collect::<Vec<u8>>();
-        assert!(4 <= api_version.len());
+        assert!(4 == api_version.len());
         let api_version = make_api_version(
             api_version[0],
             api_version[1],
