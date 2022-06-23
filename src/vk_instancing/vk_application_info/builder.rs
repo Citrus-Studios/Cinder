@@ -54,7 +54,7 @@ impl ApplicationInfoBuilder {
         self
     }
     /// Changes the Application Version using a str
-    /// with the format of `X.X.X`
+    /// with the format of `X.X.X`<br/>
     /// Will panic if the format is supplied correctly
     pub fn with_application_version_str(mut self, version: &str) -> Self {
         // Split the application_version and make sure it contains 3 or more elements
@@ -73,7 +73,7 @@ impl ApplicationInfoBuilder {
         self
     }
     /// Changes the Engine Version using a str
-    /// with the format of `X.X.X`
+    /// with the format of `X.X.X`<br/>
     /// Will panic if the format is supplied correctly
     pub fn with_engine_version_str(mut self, version: &str) -> Self {
         // Split the application_version and make sure it contains 3 or more elements
