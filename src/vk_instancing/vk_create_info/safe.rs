@@ -19,7 +19,15 @@ pub struct SafeCreateInfo<'a> {
 }
 
 impl<'a> SafeCreateInfo<'a> {
-    pub fn new() -> Self {
+    /// Creates a new Safe Create Info
+    ///
+    /// ```rust
+    /// use cinder::vulkan_instance::{create_info::SafeCreateInfo, application_info::SafeApplicationInfo};
+    ///
+    /// let application_info = SafeApplicationInfo::new_strings("Application Name", "Engine Name", "1.0.0", "1.0.0", "0.1.0.0");
+    /// let create_info = SafeCreateInfo::auto_new(&application_info);
+    /// ```
+    pub fn auto_new(application_info: &'a SafeApplicationInfo) -> Self {
         todo!();
     }
     /// Creates a new Safe Create Info
