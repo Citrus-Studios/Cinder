@@ -57,7 +57,7 @@ impl ApplicationInfoBuilder {
     /// with the format of `X.X.X`<br/>
     /// Will panic if the format is supplied incorrectly
     pub fn with_application_version_str(mut self, version: &str) -> Self {
-        // Split the application_version and make sure it contains 3 or more elements
+        // Split the application_version and make sure it contains 3 elements
         let version = version
             .split(".")
             .map(|x| {
@@ -79,7 +79,7 @@ impl ApplicationInfoBuilder {
     /// with the format of `X.X.X`<br/>
     /// Will panic if the format is supplied incorrectly
     pub fn with_engine_version_str(mut self, version: &str) -> Self {
-        // Split the application_version and make sure it contains 3 or more elements
+        // Split the application_version and make sure it contains 3 elements
         let version = version
             .split(".")
             .map(|x| {
@@ -101,7 +101,7 @@ impl ApplicationInfoBuilder {
     /// with the format of `X.X.X.X`<br/>
     /// Will panic if the format is supplied incorrectly
     pub fn with_vulkan_version_str(mut self, version: &str) -> Self {
-        // Split the application_version and make sure it contains 3 or more elements
+        // Split the application_version and make sure it contains 4 elements
         let version = version
             .split(".")
             .map(|x| {

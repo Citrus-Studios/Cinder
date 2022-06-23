@@ -71,7 +71,7 @@ impl SafeApplicationInfo {
         engine_version: &str,
         api_version: &str,
     ) -> Self {
-        // Split the application_version and make sure it contains 3 or more elements
+        // Split the application_version and make sure it contains 3 elements
         let application_version = application_version
             .split(".")
             .map(|x| {
@@ -87,7 +87,7 @@ impl SafeApplicationInfo {
             application_version[2],
         );
 
-        // Split the engine_version and make sure it contains 3 or more elements
+        // Split the engine_version and make sure it contains 3 elements
         let engine_version = engine_version
             .split(".")
             .map(|x| {
@@ -99,7 +99,7 @@ impl SafeApplicationInfo {
         let engine_version =
             make_api_version(0, engine_version[0], engine_version[1], engine_version[2]);
 
-        // Split the api_version and make sure it contains 3 or more elements
+        // Split the api_version and make sure it contains 4 elements
         let api_version = api_version
             .split(".")
             .map(|x| {
