@@ -3,7 +3,6 @@ use std::{thread::sleep, time::Duration};
 use cinder::zeroed_vec;
 use sdl2::{
     event::{Event, WindowEvent},
-    keyboard::Keycode,
     sys::SDL_Vulkan_GetInstanceExtensions,
 };
 
