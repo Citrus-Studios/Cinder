@@ -1,3 +1,12 @@
+//! Safe Wrapper for Vulkan Create Info
+//!
+//! ```rust
+//! use cinder::vk_instancing::{SafeApplicationInfo, SafeCreateInfo};
+//!
+//! let application_info = SafeApplicationInfo::new_strings("Application Name", "Engine Name", "1.0.0", "1.0.0", "0.1.0.0");
+//! let create_info = SafeCreateInfo::new_from(&application_info);
+//! ```
+
 use crate::vk_instancing::vk_application_info::SafeApplicationInfo;
 
 /// A Safe Wrapper for Create Info
