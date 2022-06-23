@@ -6,7 +6,9 @@
 //! let application_info = ApplicationInfoBuilder::new().
 //! ```
 
-use crate::{functions::make_api_version, helper::DefaultingValue};
+use crate::{
+    functions::make_api_version, helper::DefaultingValue, vk_instancing::SafeApplicationInfo,
+};
 
 pub struct ApplicationInfoBuilder {
     application_name: DefaultingValue<String>,
@@ -100,5 +102,15 @@ impl ApplicationInfoBuilder {
         let version = make_api_version(version[0], version[1], version[2], version[3]);
         self.api_version = DefaultingValue::Unique(version);
         self
+    }
+    /// Builds the the Builder into the `SafeApplicationInfo`
+    pub fn build(self) -> SafeApplicationInfo {
+        SafeApplicationInfo::new(
+            self.application_name.unwrap().as_str(),
+            self.engine_name.unwrap().as_str(),
+            self.application_version.unwrap(),
+            self.engine_version.unwrap(),
+            self.api_version.unwrap(),
+        )
     }
 }
