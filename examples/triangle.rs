@@ -1,7 +1,11 @@
 use std::{thread::sleep, time::Duration};
 
 use cinder::zeroed_vec;
-use sdl2::{event::Event, keyboard::Keycode, sys::SDL_Vulkan_GetInstanceExtensions};
+use sdl2::{
+    event::{Event, WindowEvent},
+    keyboard::Keycode,
+    sys::SDL_Vulkan_GetInstanceExtensions,
+};
 
 fn main() {
     let sdl_context = sdl2::init().unwrap();
@@ -22,17 +26,20 @@ fn main() {
 
     let mut event_pump = sdl_context.event_pump().unwrap();
 
-    let fps = Duration::from_nanos(016666);
+    let mut fps = Duration::from_nanos(016666);
 
     'running: loop {
         for event in event_pump.poll_iter() {
             match event {
-                Event::Quit { .. }
-                | Event::KeyDown {
-                    keycode: Some(Keycode::Escape),
-                    ..
-                } => break 'running,
-                _ => {}
+                Event::Quit { .. } => break 'running,
+                Event::Window { win_event, .. } => match win_event {
+                    WindowEvent::Enter => fps = Duration::from_nanos(016666),
+                    WindowEvent::Leave => fps = Duration::from_nanos(100000),
+                    _ => {}
+                },
+                _ => {
+                    println!("{:?}", event);
+                }
             }
         }
 
