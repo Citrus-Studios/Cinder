@@ -21,11 +21,11 @@ pub struct ApplicationInfoBuilder {
 impl ApplicationInfoBuilder {
     /// Creates a new `ApplicationInfoBuilder`
     ///
-    /// With the defualt values of
-    /// application_name: "Cinder Application"
-    /// engine_name: "Cinder Engine"
-    /// application_version: "1.0.0"
-    /// engine_version: "1.0.0"
+    /// With the defualt values of<br/>
+    /// application_name: "Cinder Application"<br/>
+    /// engine_name: "Cinder Engine"<br/>
+    /// application_version: "1.0.0"<br/>
+    /// engine_version: "1.0.0"<br/>
     /// api_version: "0.1.0.0"
     pub fn new() -> Self {
         Self {
