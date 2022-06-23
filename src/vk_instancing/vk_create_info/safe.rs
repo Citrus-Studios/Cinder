@@ -7,7 +7,7 @@
 //! let create_info = SafeCreateInfo::new_from(&application_info);
 //! ```
 
-use crate::vk_instancing::vk_application_info::SafeApplicationInfo;
+use crate::vk_instancing::SafeApplicationInfo;
 
 /// A Safe Wrapper for Create Info
 pub struct SafeCreateInfo<'a> {

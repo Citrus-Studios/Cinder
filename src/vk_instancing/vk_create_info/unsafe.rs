@@ -1,4 +1,4 @@
-use crate::vk_instancing::vk_application_info::SafeApplicationInfo;
+use crate::vk_instancing::SafeApplicationInfo;
 
 /// Unsafe version of CreateInfo
 pub struct CreateInfo {
