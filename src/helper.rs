@@ -1,13 +1,13 @@
-pub enum OptionOr<T> {
-    Some(T),
-    None(T),
+pub enum Fallback<T> {
+    Unique(T),
+    Fallback(T),
 }
 
-impl<T> OptionOr<T> {
+impl<T> Fallback<T> {
     pub fn unwrap(self) -> T {
         match self {
-            Self::Some(t) => t,
-            Self::None(t) => t,
+            Self::Unique(t) => t,
+            Self::Fallback(t) => t,
         }
     }
 }
