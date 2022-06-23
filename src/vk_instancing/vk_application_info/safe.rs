@@ -74,7 +74,10 @@ impl SafeApplicationInfo {
         // Split the application_version and make sure it contains 3 or more elements
         let application_version = application_version
             .split(".")
-            .map(|x| x.parse::<u8>().unwrap())
+            .map(|x| {
+                x.parse::<u8>()
+                    .expect("You can not use negative version numbers")
+            })
             .collect::<Vec<u8>>();
         assert!(3 == application_version.len());
         let application_version = make_api_version(
@@ -87,7 +90,10 @@ impl SafeApplicationInfo {
         // Split the engine_version and make sure it contains 3 or more elements
         let engine_version = engine_version
             .split(".")
-            .map(|x| x.parse::<u8>().unwrap())
+            .map(|x| {
+                x.parse::<u8>()
+                    .expect("You can not use negative version numbers")
+            })
             .collect::<Vec<u8>>();
         assert!(3 == engine_version.len());
         let engine_version =
@@ -96,7 +102,10 @@ impl SafeApplicationInfo {
         // Split the api_version and make sure it contains 3 or more elements
         let api_version = api_version
             .split(".")
-            .map(|x| x.parse::<u8>().unwrap())
+            .map(|x| {
+                x.parse::<u8>()
+                    .expect("You can not use negative version numbers")
+            })
             .collect::<Vec<u8>>();
         assert!(4 == api_version.len());
         let api_version = make_api_version(

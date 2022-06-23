@@ -60,7 +60,10 @@ impl ApplicationInfoBuilder {
         // Split the application_version and make sure it contains 3 or more elements
         let version = version
             .split(".")
-            .map(|x| x.parse::<u8>().unwrap())
+            .map(|x| {
+                x.parse::<u8>()
+                    .expect("You can not use negative version numbers")
+            })
             .collect::<Vec<u8>>();
         assert!(3 == version.len());
         let version = make_api_version(0, version[0], version[1], version[2]);
@@ -79,7 +82,10 @@ impl ApplicationInfoBuilder {
         // Split the application_version and make sure it contains 3 or more elements
         let version = version
             .split(".")
-            .map(|x| x.parse::<u8>().unwrap())
+            .map(|x| {
+                x.parse::<u8>()
+                    .expect("You can not use negative version numbers")
+            })
             .collect::<Vec<u8>>();
         assert!(3 == version.len());
         let version = make_api_version(0, version[0], version[1], version[2]);
@@ -98,7 +104,10 @@ impl ApplicationInfoBuilder {
         // Split the application_version and make sure it contains 3 or more elements
         let version = version
             .split(".")
-            .map(|x| x.parse::<u8>().unwrap())
+            .map(|x| {
+                x.parse::<u8>()
+                    .expect("You can not use negative version numbers")
+            })
             .collect::<Vec<u8>>();
         assert!(4 == version.len());
         let version = make_api_version(version[0], version[1], version[2], version[3]);
