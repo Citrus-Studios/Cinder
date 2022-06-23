@@ -22,7 +22,7 @@ impl<'a> SafeCreateInfo<'a> {
     /// Creates a new Safe Create Info
     ///
     /// ```rust
-    /// use cinder::vulkan_instance::{create_info::SafeCreateInfo, application_info::SafeApplicationInfo};
+    /// use cinder::vk_instancing::{SafeCreateInfo, SafeApplicationInfo};
     ///
     /// let application_info = SafeApplicationInfo::new_strings("Application Name", "Engine Name", "1.0.0", "1.0.0", "0.1.0.0");
     /// let create_info = SafeCreateInfo::auto_new(&application_info);
@@ -34,7 +34,7 @@ impl<'a> SafeCreateInfo<'a> {
     /// Creates a new Safe Create Info
     ///
     /// ```rust
-    /// use cinder::vulkan_instance::{create_info::SafeCreateInfo, application_info::SafeApplicationInfo};
+    /// use cinder::vk_instancing::{SafeCreateInfo, SafeApplicationInfo};
     ///
     /// let application_info = SafeApplicationInfo::new_strings("Application Name", "Engine Name", "1.0.0", "1.0.0", "0.1.0.0");
     /// let create_info = SafeCreateInfo::new_from(&application_info);

@@ -2,7 +2,7 @@
 //!
 //! # Example
 //! ```rust
-//! use cinder::vulkan_instance::application_info::SafeApplicationInfo;
+//! use cinder::vk_instancing::SafeApplicationInfo;
 //! use cinder::functions::make_api_version;
 //!
 //! let vulkan_version = make_api_version(0, 1, 0, 0);
@@ -28,7 +28,7 @@ impl SafeApplicationInfo {
     /// Please use `make_api_version` from `cinder::functions` to create the `u32s` for the application_version, engine_version, and api_version arguments
     ///
     /// ```rust
-    /// use cinder::vulkan_instance::application_info::SafeApplicationInfo;
+    /// use cinder::vk_instancing::SafeApplicationInfo;
     /// use cinder::functions::make_api_version;
     ///
     /// let vulkan_version = make_api_version(0, 1, 0, 0);
@@ -59,7 +59,7 @@ impl SafeApplicationInfo {
     ///
     /// API version in the format of `X.X.X.X`
     /// ```rust
-    /// use cinder::vulkan_instance::application_info::SafeApplicationInfo;
+    /// use cinder::vk_instancing::SafeApplicationInfo;
     /// use cinder::functions::make_api_version;
     ///
     /// let info = SafeApplicationInfo::new_strings("Application Name", "Engine Name", "1.0.0", "1.0.0", "0.1.0.0");
