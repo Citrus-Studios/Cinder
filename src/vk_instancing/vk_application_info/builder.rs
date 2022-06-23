@@ -65,7 +65,7 @@ impl ApplicationInfoBuilder {
     }
     /// Changes the Engine Version using a u32
     pub fn with_engine_version_u32(mut self, version: u32) -> Self {
-        self.application_version = DefaultingValue::Unique(version);
+        self.engine_version = DefaultingValue::Unique(version);
         self
     }
     /// Changes the Engine Version using a str
@@ -79,12 +79,12 @@ impl ApplicationInfoBuilder {
             .collect::<Vec<u8>>();
         assert!(3 == version.len());
         let version = make_api_version(0, version[0], version[1], version[2]);
-        self.application_version = DefaultingValue::Unique(version);
+        self.engine_version = DefaultingValue::Unique(version);
         self
     }
     /// Changes the Vulkan Version using a u32
     pub fn with_vulkan_version_u32(mut self, version: u32) -> Self {
-        self.application_version = DefaultingValue::Unique(version);
+        self.api_version = DefaultingValue::Unique(version);
         self
     }
     /// Changes the Vulkan Version using a str
@@ -98,7 +98,7 @@ impl ApplicationInfoBuilder {
             .collect::<Vec<u8>>();
         assert!(4 == version.len());
         let version = make_api_version(version[0], version[1], version[2], version[3]);
-        self.application_version = DefaultingValue::Unique(version);
+        self.api_version = DefaultingValue::Unique(version);
         self
     }
 }
