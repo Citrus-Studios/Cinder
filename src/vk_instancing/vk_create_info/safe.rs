@@ -30,6 +30,7 @@ impl<'a> SafeCreateInfo<'a> {
     pub fn auto_new(application_info: &'a SafeApplicationInfo) -> Self {
         todo!();
     }
+    // TODO: Finish the Doc comment for this function
     /// Creates a new Safe Create Info
     ///
     /// ```rust
