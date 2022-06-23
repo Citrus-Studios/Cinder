@@ -1,13 +1,13 @@
-pub enum Fallback<T> {
+pub enum DefaultingValue<T> {
     Unique(T),
-    Fallback(T),
+    Default(T),
 }
 
-impl<T> Fallback<T> {
+impl<T> DefaultingValue<T> {
     pub fn unwrap(self) -> T {
         match self {
             Self::Unique(t) => t,
-            Self::Fallback(t) => t,
+            Self::Default(t) => t,
         }
     }
 }

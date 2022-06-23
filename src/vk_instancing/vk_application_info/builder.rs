@@ -6,14 +6,14 @@
 //! let application_info = ApplicationInfoBuilder::new().
 //! ```
 
-use crate::{functions::make_api_version, helper::Fallback};
+use crate::{functions::make_api_version, helper::DefaultingValue};
 
 pub struct ApplicationInfoBuilder {
-    application_name: Fallback<String>,
-    engine_name: Fallback<String>,
-    application_version: Fallback<u32>,
-    engine_version: Fallback<u32>,
-    api_version: Fallback<u32>,
+    application_name: DefaultingValue<String>,
+    engine_name: DefaultingValue<String>,
+    application_version: DefaultingValue<u32>,
+    engine_version: DefaultingValue<u32>,
+    api_version: DefaultingValue<u32>,
 }
 
 impl ApplicationInfoBuilder {
@@ -27,26 +27,26 @@ impl ApplicationInfoBuilder {
     /// api_version: "0.1.0.0"
     pub fn new() -> Self {
         Self {
-            application_name: Fallback::Fallback(String::from("Cinder Application")),
-            engine_name: Fallback::Fallback(String::from("Cinder Engine")),
-            application_version: Fallback::Fallback(make_api_version(0, 1, 0, 0)),
-            engine_version: Fallback::Fallback(make_api_version(0, 1, 0, 0)),
-            api_version: Fallback::Fallback(make_api_version(0, 1, 0, 0)),
+            application_name: DefaultingValue::Default(String::from("Cinder Application")),
+            engine_name: DefaultingValue::Default(String::from("Cinder Engine")),
+            application_version: DefaultingValue::Default(make_api_version(0, 1, 0, 0)),
+            engine_version: DefaultingValue::Default(make_api_version(0, 1, 0, 0)),
+            api_version: DefaultingValue::Default(make_api_version(0, 1, 0, 0)),
         }
     }
     /// Changes the Application Name
     pub fn with_application_name(mut self, name: &str) -> Self {
-        self.application_name = Fallback::Unique(String::from(name));
+        self.application_name = DefaultingValue::Unique(String::from(name));
         self
     }
     /// Changes the Engine Name
     pub fn with_engine_name(mut self, engine_name: &str) -> Self {
-        self.engine_name = Fallback::Unique(String::from(engine_name));
+        self.engine_name = DefaultingValue::Unique(String::from(engine_name));
         self
     }
     /// Changes the Application Version using a u32
     pub fn with_application_version_u32(mut self, version: u32) -> Self {
-        self.application_version = Fallback::Unique(version);
+        self.application_version = DefaultingValue::Unique(version);
         self
     }
     /// Changes the Application Version using a str
@@ -60,7 +60,7 @@ impl ApplicationInfoBuilder {
             .collect::<Vec<u8>>();
         assert!(3 == version.len());
         let version = make_api_version(0, version[0], version[1], version[2]);
-        self.application_version = Fallback::Unique(version);
+        self.application_version = DefaultingValue::Unique(version);
         self
     }
 }
