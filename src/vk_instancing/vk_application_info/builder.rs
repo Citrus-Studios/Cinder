@@ -55,7 +55,7 @@ impl ApplicationInfoBuilder {
     }
     /// Changes the Application Version using a str
     /// with the format of `X.X.X`<br/>
-    /// Will panic if the format is supplied correctly
+    /// Will panic if the format is supplied incorrectly
     pub fn with_application_version_str(mut self, version: &str) -> Self {
         // Split the application_version and make sure it contains 3 or more elements
         let version = version
@@ -74,7 +74,7 @@ impl ApplicationInfoBuilder {
     }
     /// Changes the Engine Version using a str
     /// with the format of `X.X.X`<br/>
-    /// Will panic if the format is supplied correctly
+    /// Will panic if the format is supplied incorrectly
     pub fn with_engine_version_str(mut self, version: &str) -> Self {
         // Split the application_version and make sure it contains 3 or more elements
         let version = version
