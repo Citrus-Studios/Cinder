@@ -1,13 +1,3 @@
-#![allow(non_upper_case_globals)]
-#![allow(non_snake_case)]
-#![allow(unused_macros)]
-#![allow(dead_code)]
-#![allow(unused_imports)]
-
-use mira::{vulkan::*, loader};
-use const_cstr::*;
-use paste::paste;
-
 // Creates a "safe" function for the unsafe function
 macro_rules! vk_instance {(
 $(
@@ -19,28 +9,6 @@ $(
         $pub fn $fname( $( $arg_name: $ArgTy ),*, instance: Option<VkInstance> ) $(-> $RetTy)? {
             let $fname: [<PFN_$fname>] = unsafe {
                 loader::instance(
-                    instance.unwrap_or(std::ptr::null_mut()),
-                    const_cstr!(stringify!( $fname )),
-                ).expect(concat!(
-                    "Failed to load `", stringify!($fname), "`",
-                ))
-            };
-            unsafe { $fname( $($arg_name),* ) }
-        }
-    )*
-})}
-
-// Creates a "safe" function for the unsafe function
-macro_rules! vk_device {(
-$(
-    $( #[$attr:meta] )*
-    $pub:vis fn $fname:ident ( $($arg_name:ident : $ArgTy:ty),* $(,)? )$ (-> $RetTy:ty)?;
-)*) => (paste! {
-    $(
-        $( #[$attr] )*
-        $pub fn $fname( $( $arg_name: $ArgTy ),*, instance: Option<VkDevice> ) $(-> $RetTy)? {
-            let $fname: [<PFN_$fname>] = unsafe {
-                loader::device(
                     instance.unwrap_or(std::ptr::null_mut()),
                     const_cstr!(stringify!( $fname )),
                 ).expect(concat!(
