@@ -7,6 +7,8 @@
 //! let create_info = SafeCreateInfo::new_from(&application_info);
 //! ```
 
+use tracing::debug;
+
 use crate::vk_instancing::SafeApplicationInfo;
 
 /// A Safe Wrapper for Create Info
@@ -46,6 +48,14 @@ impl<'a> SafeCreateInfo<'a> {
         enabled_extension_count: u32,
         enabled_extension_names: Vec<String>,
     ) -> Self {
+        debug!(
+            "Creating `SafeCreateInfo` with arguments `{:?}`, `{}`, `{:?}`, `{}`, `{:?}`",
+            application_info,
+            enabled_layer_count,
+            layer_names,
+            enabled_extension_count,
+            enabled_extension_names
+        );
         Self {
             application_info,
             enabled_layer_count,

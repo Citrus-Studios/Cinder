@@ -11,9 +11,12 @@
 //! let info = SafeApplicationInfo::new("Application Name", "Engine Name", application_version, engine_version, vulkan_version);
 //! ```
 
+use tracing::debug;
+
 use crate::functions::make_api_version;
 
 /// Safe Wrapper for Application Info to prevent unsafe headaches.
+#[derive(Debug)]
 pub struct SafeApplicationInfo {
     pub application_name: String,
     pub engine_name: String,
@@ -43,6 +46,10 @@ impl SafeApplicationInfo {
         engine_version: u32,
         api_version: u32,
     ) -> Self {
+        debug!(
+            "Creating `SafeApplicationInfo` with arguments `{}`, `{}`, `{}`, `{}`, `{}`",
+            application_name, engine_name, application_version, engine_version, api_version
+        );
         Self {
             application_name: application_name.to_string(),
             engine_name: engine_name.to_string(),
@@ -71,13 +78,13 @@ impl SafeApplicationInfo {
         engine_version: &str,
         api_version: &str,
     ) -> Self {
+        const PARSE_ERROR: &'static str =
+            "You can not use negative version numbers or numbers above 255";
+
         // Split the application_version and make sure it contains 3 elements
         let application_version = application_version
             .split(".")
-            .map(|x| {
-                x.parse::<u8>()
-                    .expect("You can not use negative version numbers")
-            })
+            .map(|x| x.parse::<u8>().expect(PARSE_ERROR))
             .collect::<Vec<u8>>();
         assert!(3 == application_version.len());
         let application_version = make_api_version(
@@ -90,10 +97,7 @@ impl SafeApplicationInfo {
         // Split the engine_version and make sure it contains 3 elements
         let engine_version = engine_version
             .split(".")
-            .map(|x| {
-                x.parse::<u8>()
-                    .expect("You can not use negative version numbers")
-            })
+            .map(|x| x.parse::<u8>().expect(PARSE_ERROR))
             .collect::<Vec<u8>>();
         assert!(3 == engine_version.len());
         let engine_version =
@@ -102,10 +106,7 @@ impl SafeApplicationInfo {
         // Split the api_version and make sure it contains 4 elements
         let api_version = api_version
             .split(".")
-            .map(|x| {
-                x.parse::<u8>()
-                    .expect("You can not use negative version numbers")
-            })
+            .map(|x| x.parse::<u8>().expect(PARSE_ERROR))
             .collect::<Vec<u8>>();
         assert!(4 == api_version.len());
         let api_version = make_api_version(
