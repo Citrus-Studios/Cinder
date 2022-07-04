@@ -16,6 +16,8 @@ fn main() {
         // completes the builder.
         .finish();
 
+    tracing::subscriber::set_global_default(subscriber).expect("setting default subscriber failed");
+
     let sdl_context = sdl2::init().unwrap();
     let video_subsystem = sdl_context.video().unwrap();
 
