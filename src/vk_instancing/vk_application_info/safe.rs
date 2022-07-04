@@ -47,7 +47,7 @@ impl SafeApplicationInfo {
         api_version: u32,
     ) -> Self {
         debug!(
-            "Creating `SafeApplicationInfo` from {}, {}, {}, {}, {}",
+            "Creating `SafeApplicationInfo` from `{}`, `{}`, `{}`, `{}`, `{}`",
             application_name, engine_name, application_version, engine_version, api_version
         );
         Self {
