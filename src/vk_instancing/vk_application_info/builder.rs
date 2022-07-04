@@ -32,6 +32,7 @@ impl ApplicationInfoBuilder {
     /// api_version: "0.1.0.0"
     /// ```
     pub fn new() -> Self {
+        debug!("Creating new `ApplicationInfoBuilder`");
         Self {
             application_name: DefaultingValue::Default(String::from("Cinder Application")),
             engine_name: DefaultingValue::Default(String::from("Cinder Engine")),
