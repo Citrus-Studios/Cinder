@@ -9,13 +9,16 @@ edition = "2021"
 
 builder = []
 
-default = ["builder"]
+default = ["builder", "tracing"]
 
 [dev-dependencies]
 sdl2 = "0.35.2"
+tracing-subscriber = "0.3.11"
 
 [dependencies]
 mira = "0.1.13"
 const-cstr = "0.3.0"
 paste = "1.0.6"
 sdl2 = "0.35.2"
+
+tracing = { version = "0.1.35", optional = true }
