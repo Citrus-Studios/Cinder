@@ -14,8 +14,9 @@ default = ["builder", "tracing"]
 [dev-dependencies]
 sdl2 = "0.35.2"
 tokio = "1.19.2"
+tracing = "0.1.35"
+tracing-subscriber = {version = "0.3", features = ["env-filter", "fmt"]}
 test-log = { version = "0.2.10", default-features = false, features = ["trace"] }
-tracing-subscriber = "0.3.11"
 
 [dependencies]
 mira = "0.1.13"
