@@ -1,3 +1,5 @@
+use tracing::debug;
+
 use crate::vk_instancing::SafeApplicationInfo;
 
 /// Unsafe version of UnsafeCreateInfo
@@ -17,6 +19,14 @@ impl UnsafeCreateInfo {
         enabled_extension_count: u32,
         enabled_extension_names: *const *const char,
     ) -> Self {
+        debug!(
+            "Created `UnsafeCreateInfo` with arguments `{:?}`, `{}`, `{:?}`, `{}`, `{:?}`",
+            application_info,
+            enabled_layer_count,
+            layer_names,
+            enabled_extension_count,
+            enabled_extension_names
+        );
         Self {
             application_info,
             enabled_layer_count,

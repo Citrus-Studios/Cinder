@@ -6,6 +6,8 @@
 //! let application_info = ApplicationInfoBuilder::new().
 //! ```
 
+use tracing::debug;
+
 use crate::{
     functions::make_api_version, helper::DefaultingValue, vk_instancing::SafeApplicationInfo,
 };
@@ -30,6 +32,7 @@ impl ApplicationInfoBuilder {
     /// api_version: "0.1.0.0"
     /// ```
     pub fn new() -> Self {
+        debug!("Creating new `ApplicationInfoBuilder`");
         Self {
             application_name: DefaultingValue::Default(String::from("Cinder Application")),
             engine_name: DefaultingValue::Default(String::from("Cinder Engine")),
@@ -40,16 +43,19 @@ impl ApplicationInfoBuilder {
     }
     /// Changes the Application Name
     pub fn with_application_name(mut self, name: &str) -> Self {
+        debug!("Added Application Name {}", name);
         self.application_name = DefaultingValue::Unique(String::from(name));
         self
     }
     /// Changes the Engine Name
     pub fn with_engine_name(mut self, engine_name: &str) -> Self {
+        debug!("Added Engine Name {}", engine_name);
         self.engine_name = DefaultingValue::Unique(String::from(engine_name));
         self
     }
     /// Changes the Application Version using a u32
     pub fn with_application_version_u32(mut self, version: u32) -> Self {
+        debug!("Added Application Version `u32` {}", version);
         self.application_version = DefaultingValue::Unique(version);
         self
     }
@@ -57,6 +63,7 @@ impl ApplicationInfoBuilder {
     /// with the format of `X.X.X`<br/>
     /// Will panic if the format is supplied incorrectly
     pub fn with_application_version_str(mut self, version: &str) -> Self {
+        debug!("Added Application Version `str` {}", version);
         // Split the application_version and make sure it contains 3 elements
         let version = version
             .split(".")
@@ -72,6 +79,7 @@ impl ApplicationInfoBuilder {
     }
     /// Changes the Engine Version using a u32
     pub fn with_engine_version_u32(mut self, version: u32) -> Self {
+        debug!("Added Engine Version `u32` {}", version);
         self.engine_version = DefaultingValue::Unique(version);
         self
     }
@@ -79,6 +87,7 @@ impl ApplicationInfoBuilder {
     /// with the format of `X.X.X`<br/>
     /// Will panic if the format is supplied incorrectly
     pub fn with_engine_version_str(mut self, version: &str) -> Self {
+        debug!("Added Engine Version `str` {}", version);
         // Split the application_version and make sure it contains 3 elements
         let version = version
             .split(".")
@@ -94,6 +103,7 @@ impl ApplicationInfoBuilder {
     }
     /// Changes the Vulkan Version using a u32
     pub fn with_vulkan_version_u32(mut self, version: u32) -> Self {
+        debug!("Added Vulkan Version `u32` {}", version);
         self.api_version = DefaultingValue::Unique(version);
         self
     }
@@ -101,6 +111,7 @@ impl ApplicationInfoBuilder {
     /// with the format of `X.X.X.X`<br/>
     /// Will panic if the format is supplied incorrectly
     pub fn with_vulkan_version_str(mut self, version: &str) -> Self {
+        debug!("Added Vulkan Version `str` {}", version);
         // Split the application_version and make sure it contains 4 elements
         let version = version
             .split(".")
@@ -116,6 +127,7 @@ impl ApplicationInfoBuilder {
     }
     /// Builds the the Builder into the `SafeApplicationInfo`
     pub fn build(self) -> SafeApplicationInfo {
+        debug!("Building `SafeApplicationInfo`");
         SafeApplicationInfo::new(
             self.application_name.unwrap().as_str(),
             self.engine_name.unwrap().as_str(),

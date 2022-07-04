@@ -11,9 +11,12 @@
 //! let info = SafeApplicationInfo::new("Application Name", "Engine Name", application_version, engine_version, vulkan_version);
 //! ```
 
+use tracing::debug;
+
 use crate::functions::make_api_version;
 
 /// Safe Wrapper for Application Info to prevent unsafe headaches.
+#[derive(Debug)]
 pub struct SafeApplicationInfo {
     pub application_name: String,
     pub engine_name: String,
@@ -43,6 +46,10 @@ impl SafeApplicationInfo {
         engine_version: u32,
         api_version: u32,
     ) -> Self {
+        debug!(
+            "Creating `SafeApplicationInfo` with arguments `{}`, `{}`, `{}`, `{}`, `{}`",
+            application_name, engine_name, application_version, engine_version, api_version
+        );
         Self {
             application_name: application_name.to_string(),
             engine_name: engine_name.to_string(),
