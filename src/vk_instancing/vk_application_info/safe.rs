@@ -14,6 +14,7 @@
 use crate::functions::make_api_version;
 
 /// Safe Wrapper for Application Info to prevent unsafe headaches.
+#[derive(Debug)]
 pub struct SafeApplicationInfo {
     pub application_name: String,
     pub engine_name: String,
