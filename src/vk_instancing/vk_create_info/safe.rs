@@ -49,7 +49,7 @@ impl<'a> SafeCreateInfo<'a> {
         enabled_extension_names: Vec<String>,
     ) -> Self {
         debug!(
-            "Created `new_from` with arguments {:?} {} {:?} {} {:?}",
+            "Creating `new_from` with arguments {:?} {} {:?} {} {:?}",
             application_info,
             enabled_layer_count,
             layer_names,
