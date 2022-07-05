@@ -2,7 +2,7 @@ use tracing::debug;
 
 use crate::vk_instancing::SafeApplicationInfo;
 
-/// Unsafe version of UnsafeCreateInfo
+/// Unsafe version of `SafeCreateInfo`
 pub struct UnsafeCreateInfo {
     pub application_info: *const SafeApplicationInfo,
     pub enabled_layer_count: u32,
