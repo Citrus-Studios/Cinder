@@ -1,3 +1,5 @@
+use tracing::debug;
+
 /// Unsafe version of `SafeApplicationInfo`
 pub struct UnsafeApplicationInfo {
     pub application_name: *const char,
@@ -15,6 +17,10 @@ impl UnsafeApplicationInfo {
         engine_version: u32,
         api_version: u32,
     ) -> Self {
+        debug!(
+            "Creating `UnsafeApplicationInfo` with arguments `{:?}`, `{:?}`, `{}`, `{}`, `{}`",
+            application_name, engine_name, application_version, engine_version, api_version
+        );
         Self {
             application_name,
             engine_name,
