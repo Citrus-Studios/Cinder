@@ -8,9 +8,8 @@ edition = "2021"
 [features]
 
 builder = []
-minimal-logging = []
-medium-logging = []
 heavy-logging = []
+medium-logging = []
 no-logging = []
 
 default = ["builder", "tracing", "heavy-logging"]
