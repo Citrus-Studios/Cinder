@@ -46,10 +46,13 @@ impl SafeApplicationInfo {
         engine_version: u32,
         api_version: u32,
     ) -> Self {
+        #[cfg(feature = "heavy-logging")]
         debug!(
             "Creating `SafeApplicationInfo` with arguments `{}`, `{}`, `{}`, `{}`, `{}`",
             application_name, engine_name, application_version, engine_version, api_version
         );
+        #[cfg(feature = "medium-logging")]
+        debug!("Creating `SafeApplicationInfo`",);
         Self {
             application_name: application_name.to_string(),
             engine_name: engine_name.to_string(),
@@ -78,6 +81,14 @@ impl SafeApplicationInfo {
         engine_version: &str,
         api_version: &str,
     ) -> Self {
+        #[cfg(feature = "heavy-logging")]
+        debug!(
+            "Creating `SafeApplicationInfo` with arguments `{}`, `{}`, `{}`, `{}`, `{}`",
+            application_name, engine_name, application_version, engine_version, api_version
+        );
+        #[cfg(feature = "medium-logging")]
+        debug!("Creating `SafeApplicationInfo`",);
+
         const PARSE_ERROR: &'static str =
             "You can not use negative version numbers or numbers above 255";
 
