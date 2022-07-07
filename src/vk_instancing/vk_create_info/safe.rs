@@ -29,7 +29,7 @@ impl<'a> SafeCreateInfo<'a> {
     /// let application_info = SafeApplicationInfo::new_strings("Application Name", "Engine Name", "1.0.0", "1.0.0", "0.1.0.0");
     /// let create_info = SafeCreateInfo::auto_new(&application_info);
     /// ```
-    pub fn auto_new(application_info: &'a SafeApplicationInfo) -> Self {
+    pub fn auto_new(_application_info: &'a SafeApplicationInfo) -> Self {
         todo!();
     }
     // TODO: Finish the Doc comment for this function
