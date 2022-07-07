@@ -10,7 +10,6 @@ edition = "2021"
 builder = []
 heavy-logging = []
 medium-logging = []
-no-logging = []
 
 default = ["builder", "tracing", "heavy-logging"]
 
