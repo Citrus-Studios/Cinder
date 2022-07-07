@@ -8,8 +8,12 @@ edition = "2021"
 [features]
 
 builder = []
+minimal-logging = []
+medium-logging = []
+heavy-logging = []
+no-logging = []
 
-default = ["builder", "tracing"]
+default = ["builder", "tracing", "heavy-logging"]
 
 [dev-dependencies]
 sdl2 = "0.35.2"
