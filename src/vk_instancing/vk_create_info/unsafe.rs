@@ -20,7 +20,7 @@ impl UnsafeCreateInfo {
         enabled_extension_names: *const *const char,
     ) -> Self {
         debug!(
-            "Created `UnsafeCreateInfo` with arguments `{:?}`, `{}`, `{:?}`, `{}`, `{:?}`",
+            "Created `UnsafeCreateInfo` with arguments `{:#?}`, `{}`, `{:?}`, `{}`, `{:?}`",
             application_info,
             enabled_layer_count,
             layer_names,

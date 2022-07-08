@@ -50,7 +50,7 @@ impl<'a> SafeCreateInfo<'a> {
     ) -> Self {
         #[cfg(feature = "heavy-logging")]
         debug!(
-            "Creating `SafeCreateInfo` using `new_from` function with arguments `{:?}`, `{}`, `{:?}`, `{}`, `{:?}`",
+            "Creating `SafeCreateInfo` using `new_from` function with arguments `{:#?}`, `{}`, `{:?}`, `{}`, `{:?}`",
             application_info,
             enabled_layer_count,
             layer_names,
