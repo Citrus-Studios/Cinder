@@ -11,6 +11,8 @@ use tracing::debug;
 
 use crate::vk_instancing::SafeApplicationInfo;
 
+use super::builder::CreateInfoBuilder;
+
 /// A Safe Wrapper for Create Info
 pub struct SafeCreateInfo<'a> {
     pub application_info: &'a SafeApplicationInfo,
@@ -29,8 +31,10 @@ impl<'a> SafeCreateInfo<'a> {
     /// let application_info = SafeApplicationInfo::new_strings("Application Name", "Engine Name", "1.0.0", "1.0.0", "0.1.0.0");
     /// let create_info = SafeCreateInfo::auto_new(&application_info);
     /// ```
-    pub fn auto_new(_application_info: &'a SafeApplicationInfo) -> Self {
-        todo!();
+    pub fn auto_new(application_info: &'a SafeApplicationInfo) -> Self {
+        CreateInfoBuilder::new()
+            .with_application_info(application_info)
+            .build()
     }
     // TODO: Finish the Doc comment for this function
     /// Creates a new Safe Create Info
