@@ -4,7 +4,7 @@ use cinder::vk_instancing::{
 };
 
 #[tokio::test]
-async fn basic_logging_test() {
+async fn logging_test() {
     let subscriber = tracing_subscriber::FmtSubscriber::builder()
         .with_max_level(tracing::Level::TRACE)
         .finish();
