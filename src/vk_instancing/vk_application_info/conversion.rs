@@ -1,6 +1,8 @@
 use std::ffi::CString;
 
-use crate::vk_instancing::SafeApplicationInfo;
+use mira::vulkan::VkApplicationInfo;
+
+use crate::{structure_type::StructureType, vk_instancing::SafeApplicationInfo};
 
 use super::r#unsafe::UnsafeApplicationInfo;
 
@@ -19,6 +21,20 @@ impl Into<UnsafeApplicationInfo> for SafeApplicationInfo {
                 self.engine_version,
                 self.api_version,
             )
+        }
+    }
+}
+
+impl Into<VkApplicationInfo> for UnsafeApplicationInfo {
+    fn into(self) -> VkApplicationInfo {
+        VkApplicationInfo {
+            sType: StructureType::ApplicationInfo as u32,
+            pNext: std::ptr::null(),
+            pApplicationName: self.application_name as *const i8,
+            applicationVersion: self.application_version,
+            pEngineName: self.engine_name as *const i8,
+            engineVersion: self.engine_version,
+            apiVersion: self.api_version,
         }
     }
 }
