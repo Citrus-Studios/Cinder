@@ -9,7 +9,7 @@ use super::r#unsafe::UnsafeApplicationInfo;
 
 impl Into<UnsafeApplicationInfo> for SafeApplicationInfo {
     fn into(self) -> UnsafeApplicationInfo {
-        #[cfg(feature = "heavy-logging")]
+        #[cfg(feature = "detailed-logging")]
         debug!("Converting `SafeApplicationInfo` into `UnsafeApplicationInfo`");
         let application_name = CString::new(self.application_name).unwrap();
         let application_name = application_name.as_ptr() as *const char;
@@ -30,7 +30,7 @@ impl Into<UnsafeApplicationInfo> for SafeApplicationInfo {
 
 impl Into<VkApplicationInfo> for UnsafeApplicationInfo {
     fn into(self) -> VkApplicationInfo {
-        #[cfg(feature = "heavy-logging")]
+        #[cfg(feature = "detailed-logging")]
         debug!("Converting `UnsafeApplicationInfo` into `VkApplicationInfo`");
         VkApplicationInfo {
             sType: StructureType::ApplicationInfo as u32,

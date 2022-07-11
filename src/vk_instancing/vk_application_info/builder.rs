@@ -32,7 +32,7 @@ impl ApplicationInfoBuilder {
     /// api_version: "0.1.0.0"
     /// ```
     pub fn new() -> Self {
-        #[cfg(any(feature = "medium-logging", feature = "heavy-logging"))]
+        #[cfg(any(feature = "logging", feature = "detailed-logging"))]
         debug!("Creating new `ApplicationInfoBuilder`");
         Self {
             application_name: DefaultingValue::Default(String::from("Cinder Application")),
@@ -44,27 +44,27 @@ impl ApplicationInfoBuilder {
     }
     /// Changes the Application Name
     pub fn with_application_name(mut self, name: &str) -> Self {
-        #[cfg(feature = "heavy-logging")]
+        #[cfg(feature = "detailed-logging")]
         debug!("Added Application Name `{}`", name);
-        #[cfg(feature = "medium-logging")]
+        #[cfg(feature = "logging")]
         debug!("Added Application Name");
         self.application_name = DefaultingValue::Unique(String::from(name));
         self
     }
     /// Changes the Engine Name
     pub fn with_engine_name(mut self, engine_name: &str) -> Self {
-        #[cfg(feature = "heavy-logging")]
+        #[cfg(feature = "detailed-logging")]
         debug!("Added Engine Name `{}`", engine_name);
-        #[cfg(feature = "medium-logging")]
+        #[cfg(feature = "logging")]
         debug!("Added Engine Name");
         self.engine_name = DefaultingValue::Unique(String::from(engine_name));
         self
     }
     /// Changes the Application Version using a u32
     pub fn with_application_version_u32(mut self, version: u32) -> Self {
-        #[cfg(feature = "heavy-logging")]
+        #[cfg(feature = "detailed-logging")]
         debug!("Added Application Version `u32` `{}`", version);
-        #[cfg(feature = "medium-logging")]
+        #[cfg(feature = "logging")]
         debug!("Added Application Version `u32`");
         self.application_version = DefaultingValue::Unique(version);
         self
@@ -73,9 +73,9 @@ impl ApplicationInfoBuilder {
     /// with the format of `X.X.X`<br/>
     /// Will panic if the format is supplied incorrectly
     pub fn with_application_version_str(mut self, version: &str) -> Self {
-        #[cfg(feature = "heavy-logging")]
+        #[cfg(feature = "detailed-logging")]
         debug!("Added Application Version `str` `{}`", version);
-        #[cfg(feature = "medium-logging")]
+        #[cfg(feature = "logging")]
         debug!("Added Application Version `str`");
         // Split the application_version and make sure it contains 3 elements
         let version = version
@@ -92,9 +92,9 @@ impl ApplicationInfoBuilder {
     }
     /// Changes the Engine Version using a u32
     pub fn with_engine_version_u32(mut self, version: u32) -> Self {
-        #[cfg(feature = "heavy-logging")]
+        #[cfg(feature = "detailed-logging")]
         debug!("Added Engine Version `u32` `{}`", version);
-        #[cfg(feature = "medium-logging")]
+        #[cfg(feature = "logging")]
         debug!("Added Engine Version `u32`");
         self.engine_version = DefaultingValue::Unique(version);
         self
@@ -103,9 +103,9 @@ impl ApplicationInfoBuilder {
     /// with the format of `X.X.X`<br/>
     /// Will panic if the format is supplied incorrectly
     pub fn with_engine_version_str(mut self, version: &str) -> Self {
-        #[cfg(feature = "heavy-logging")]
+        #[cfg(feature = "detailed-logging")]
         debug!("Added Engine Version `str` `{}`", version);
-        #[cfg(feature = "medium-logging")]
+        #[cfg(feature = "logging")]
         debug!("Added Engine Version `str`");
         // Split the application_version and make sure it contains 3 elements
         let version = version
@@ -122,9 +122,9 @@ impl ApplicationInfoBuilder {
     }
     /// Changes the Vulkan Version using a u32
     pub fn with_vulkan_version_u32(mut self, version: u32) -> Self {
-        #[cfg(feature = "heavy-logging")]
+        #[cfg(feature = "detailed-logging")]
         debug!("Added Vulkan Version `u32` `{}`", version);
-        #[cfg(feature = "medium-logging")]
+        #[cfg(feature = "logging")]
         debug!("Added Vulkan Version `u32`");
         self.api_version = DefaultingValue::Unique(version);
         self
@@ -133,9 +133,9 @@ impl ApplicationInfoBuilder {
     /// with the format of `X.X.X.X`<br/>
     /// Will panic if the format is supplied incorrectly
     pub fn with_vulkan_version_str(mut self, version: &str) -> Self {
-        #[cfg(feature = "heavy-logging")]
+        #[cfg(feature = "detailed-logging")]
         debug!("Added Vulkan Version `u32` `{}`", version);
-        #[cfg(feature = "medium-logging")]
+        #[cfg(feature = "logging")]
         debug!("Added Vulkan Version `u32`");
         // Split the application_version and make sure it contains 4 elements
         let version = version
@@ -152,7 +152,7 @@ impl ApplicationInfoBuilder {
     }
     /// Builds the the Builder into the `SafeApplicationInfo`
     pub fn build(self) -> SafeApplicationInfo {
-        #[cfg(any(feature = "medium-logging", feature = "heavy-logging"))]
+        #[cfg(any(feature = "logging", feature = "detailed-logging"))]
         debug!("Building `SafeApplicationInfo`");
         SafeApplicationInfo::new(
             self.application_name.unwrap().as_str(),

@@ -54,7 +54,7 @@ impl<'a> Into<UnsafeCreateInfo> for SafeCreateInfo<'a> {
 
 impl Into<VkInstanceCreateInfo> for UnsafeCreateInfo {
     fn into(self) -> VkInstanceCreateInfo {
-        #[cfg(feature = "heavy-logging")]
+        #[cfg(feature = "detailed-logging")]
         debug!("Converting `UnsafeCreateInfo` into `VkInstanceCreateInfo`");
         VkInstanceCreateInfo {
             sType: StructureType::InstanceCreateInfo as u32,

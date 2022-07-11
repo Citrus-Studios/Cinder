@@ -53,7 +53,7 @@ impl<'a> SafeCreateInfo<'a> {
         enabled_extension_count: u32,
         enabled_extension_names: Vec<String>,
     ) -> Self {
-        #[cfg(feature = "heavy-logging")]
+        #[cfg(feature = "detailed-logging")]
         debug!(
             "Creating `SafeCreateInfo` using `new_from` function with arguments `{:#?}`, `{}`, `{:?}`, `{}`, `{:?}`",
             application_info,
@@ -62,7 +62,7 @@ impl<'a> SafeCreateInfo<'a> {
             enabled_extension_count,
             enabled_extension_names
         );
-        #[cfg(feature = "medium-logging")]
+        #[cfg(feature = "logging")]
         debug!("Creating `SafeCreateInfo` using `new_from` function");
         Self {
             application_info,

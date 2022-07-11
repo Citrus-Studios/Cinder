@@ -8,10 +8,10 @@ edition = "2021"
 [features]
 
 builder = []
-heavy-logging = ["tracing"]
-medium-logging = ["tracing"]
+detailed-logging = ["tracing"]
+logging = ["tracing"]
 
-default = ["builder", "heavy-logging"]
+default = ["builder", "detailed-logging"]
 
 [dev-dependencies]
 sdl2 = "0.35.2"

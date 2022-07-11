@@ -46,12 +46,12 @@ impl SafeApplicationInfo {
         engine_version: u32,
         api_version: u32,
     ) -> Self {
-        #[cfg(feature = "heavy-logging")]
+        #[cfg(feature = "detailed-logging")]
         debug!(
             "Creating `SafeApplicationInfo` using `new` function with arguments `{}`, `{}`, `{}`, `{}`, `{}`",
             application_name, engine_name, application_version, engine_version, api_version
         );
-        #[cfg(feature = "medium-logging")]
+        #[cfg(feature = "logging")]
         debug!("Creating `SafeApplicationInfo` using `new` function",);
         Self {
             application_name: application_name.to_string(),

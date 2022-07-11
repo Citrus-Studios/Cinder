@@ -29,9 +29,9 @@ impl<'a> CreateInfoBuilder<'a> {
     }
     /// Changes the application info
     pub fn with_application_info(mut self, application_info: &'a SafeApplicationInfo) -> Self {
-        #[cfg(feature = "heavy-logging")]
+        #[cfg(feature = "detailed-logging")]
         debug!("Adding Application Name `{:#?}`", application_info);
-        #[cfg(feature = "medium-logging")]
+        #[cfg(feature = "logging")]
         debug!("Adding Application Name");
         let x = self.application_info.unwrap();
         self.application_info = DefaultingValue::Unique(application_info);
@@ -40,25 +40,25 @@ impl<'a> CreateInfoBuilder<'a> {
     }
     /// Changes the layer names
     pub fn with_layer_names(mut self, layer_names: Vec<String>) -> Self {
-        #[cfg(feature = "heavy-logging")]
+        #[cfg(feature = "detailed-logging")]
         debug!("Adding Layer Names `{:#?}`", layer_names);
-        #[cfg(feature = "medium-logging")]
+        #[cfg(feature = "logging")]
         debug!("Adding Layer Names");
         self.layer_names = DefaultingValue::Unique(layer_names);
         self
     }
     /// Changes the extensions
     pub fn with_extensions(mut self, extension_names: Vec<String>) -> Self {
-        #[cfg(feature = "heavy-logging")]
+        #[cfg(feature = "detailed-logging")]
         debug!("Adding Extensions `{:#?}`", extension_names);
-        #[cfg(feature = "medium-logging")]
+        #[cfg(feature = "logging")]
         debug!("Adding Extensions");
         self.enabled_extension_names = DefaultingValue::Unique(extension_names);
         self
     }
     /// Builds the the Builder into the `SafeCreateInfo`
     pub fn build(self) -> SafeCreateInfo<'a> {
-        #[cfg(any(feature = "medium-logging", feature = "heavy-logging"))]
+        #[cfg(any(feature = "detailed-logging", feature = "logging"))]
         debug!("Building `SafeCreateInfo`");
         let layer_names = self.layer_names.unwrap();
         let extensions = self.enabled_extension_names.unwrap();
