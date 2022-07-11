@@ -51,3 +51,18 @@ impl<'a> Into<UnsafeCreateInfo> for SafeCreateInfo<'a> {
         }
     }
 }
+
+impl Into<VkInstanceCreateInfo> for UnsafeCreateInfo {
+    fn into(self) -> VkInstanceCreateInfo {
+        VkInstanceCreateInfo {
+            sType: StructureType::InstanceCreateInfo as u32,
+            pNext: std::ptr::null(),
+            flags: 0,
+            pApplicationInfo: self.application_info,
+            enabledLayerCount: self.enabled_layer_count,
+            ppEnabledLayerNames: self.layer_names as *const *const i8,
+            enabledExtensionCount: self.enabled_extension_count,
+            ppEnabledExtensionNames: self.enabled_extension_names as *const *const i8,
+        }
+    }
+}
