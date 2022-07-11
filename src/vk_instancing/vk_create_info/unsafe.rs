@@ -1,10 +1,9 @@
+use mira::vulkan::VkApplicationInfo;
 use tracing::debug;
-
-use crate::vk_instancing::SafeApplicationInfo;
 
 /// Unsafe version of `SafeCreateInfo`
 pub struct UnsafeCreateInfo {
-    pub application_info: *const SafeApplicationInfo,
+    pub application_info: *const VkApplicationInfo,
     pub enabled_layer_count: u32,
     pub layer_names: *const *const char,
     pub enabled_extension_count: u32,
@@ -13,7 +12,7 @@ pub struct UnsafeCreateInfo {
 
 impl UnsafeCreateInfo {
     pub unsafe fn new(
-        application_info: *const SafeApplicationInfo,
+        application_info: *const VkApplicationInfo,
         enabled_layer_count: u32,
         layer_names: *const *const char,
         enabled_extension_count: u32,
