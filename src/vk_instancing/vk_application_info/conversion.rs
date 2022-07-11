@@ -1,6 +1,7 @@
 use std::ffi::CString;
 
 use mira::vulkan::VkApplicationInfo;
+use tracing::debug;
 
 use crate::{structure_type::StructureType, vk_instancing::SafeApplicationInfo};
 
@@ -8,6 +9,8 @@ use super::r#unsafe::UnsafeApplicationInfo;
 
 impl Into<UnsafeApplicationInfo> for SafeApplicationInfo {
     fn into(self) -> UnsafeApplicationInfo {
+        #[cfg(feature = "heavy-logging")]
+        debug!("Converting `SafeApplicationInfo` into `UnsafeApplicationInfo`");
         let application_name = CString::new(self.application_name).unwrap();
         let application_name = application_name.as_ptr() as *const char;
         let engine_name = CString::new(self.engine_name).unwrap();
@@ -27,6 +30,8 @@ impl Into<UnsafeApplicationInfo> for SafeApplicationInfo {
 
 impl Into<VkApplicationInfo> for UnsafeApplicationInfo {
     fn into(self) -> VkApplicationInfo {
+        #[cfg(feature = "heavy-logging")]
+        debug!("Converting `UnsafeApplicationInfo` into `VkApplicationInfo`");
         VkApplicationInfo {
             sType: StructureType::ApplicationInfo as u32,
             pNext: std::ptr::null(),
