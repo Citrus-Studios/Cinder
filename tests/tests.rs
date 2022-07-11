@@ -27,6 +27,7 @@ async fn raw_conversion_test() {
     let application_info = ApplicationInfoBuilder::new().build();
     let unsafe_application_info: UnsafeApplicationInfo = application_info.clone().into();
     let _raw_application_info: VkApplicationInfo = unsafe_application_info.into();
+
     let create_info = CreateInfoBuilder::new()
         .with_application_info(&application_info)
         .build();
