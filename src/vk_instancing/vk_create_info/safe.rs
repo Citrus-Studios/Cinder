@@ -14,6 +14,7 @@ use crate::vk_instancing::SafeApplicationInfo;
 use super::builder::CreateInfoBuilder;
 
 /// A Safe Wrapper for Create Info
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct SafeCreateInfo<'a> {
     pub application_info: &'a SafeApplicationInfo,
     pub enabled_layer_count: u32,
