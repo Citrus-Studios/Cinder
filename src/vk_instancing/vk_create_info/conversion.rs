@@ -1,8 +1,15 @@
 use std::ffi::CString;
 
+use mira::vulkan::{VkApplicationInfo, VkInstanceCreateInfo};
 use tracing::debug;
 
-use crate::vk_instancing::{SafeApplicationInfo, SafeCreateInfo, UnsafeCreateInfo};
+use crate::{
+    structure_type::StructureType,
+    vk_instancing::{
+        vk_application_info::r#unsafe::UnsafeApplicationInfo, SafeApplicationInfo, SafeCreateInfo,
+        UnsafeCreateInfo,
+    },
+};
 
 impl<'a> Into<UnsafeCreateInfo> for SafeCreateInfo<'a> {
     fn into(self) -> UnsafeCreateInfo {
@@ -32,7 +39,11 @@ impl<'a> Into<UnsafeCreateInfo> for SafeCreateInfo<'a> {
             .0 as *const *const char;
 
         UnsafeCreateInfo {
-            application_info: self.application_info as *const SafeApplicationInfo,
+            application_info: &<UnsafeApplicationInfo as Into<VkApplicationInfo>>::into(
+                <SafeApplicationInfo as Into<UnsafeApplicationInfo>>::into(
+                    self.application_info.clone(),
+                ),
+            ),
             enabled_layer_count: self.enabled_layer_count,
             layer_names: layer_names,
             enabled_extension_count: self.enabled_extension_count,
