@@ -1,3 +1,5 @@
+#![feature(vec_into_raw_parts)]
+
 pub mod functions;
 pub mod helper;
 pub mod match_error_codes;
