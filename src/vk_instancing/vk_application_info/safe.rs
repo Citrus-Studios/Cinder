@@ -15,6 +15,8 @@ use tracing::debug;
 
 use crate::functions::make_api_version;
 
+use super::raw::ApplicationInfo;
+
 /// Safe Wrapper for Application Info to prevent unsafe headaches.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct SafeApplicationInfo {
@@ -134,5 +136,8 @@ impl SafeApplicationInfo {
             engine_version,
             api_version,
         }
+    }
+    pub fn finish(self) -> ApplicationInfo {
+        ApplicationInfo::new(self)
     }
 }

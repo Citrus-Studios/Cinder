@@ -5,7 +5,7 @@ use tracing::debug;
 
 use crate::{structure_type::StructureType, vk_instancing::SafeApplicationInfo};
 
-use super::r#unsafe::UnsafeApplicationInfo;
+use super::{r#unsafe::UnsafeApplicationInfo, raw::ApplicationInfo};
 
 impl Into<UnsafeApplicationInfo> for SafeApplicationInfo {
     fn into(self) -> UnsafeApplicationInfo {
@@ -41,5 +41,11 @@ impl Into<VkApplicationInfo> for UnsafeApplicationInfo {
             engineVersion: self.engine_version,
             apiVersion: self.api_version,
         }
+    }
+}
+
+impl Into<ApplicationInfo> for SafeApplicationInfo {
+    fn into(self) -> ApplicationInfo {
+        ApplicationInfo::new(self)
     }
 }
