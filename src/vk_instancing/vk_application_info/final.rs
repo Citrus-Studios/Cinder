@@ -6,8 +6,8 @@ use super::r#unsafe::UnsafeApplicationInfo;
 
 #[derive(Debug, Clone)]
 pub struct ApplicationInfo {
-    raw: VkApplicationInfo,
-    normal: SafeApplicationInfo,
+    pub raw: VkApplicationInfo,
+    pub normal: SafeApplicationInfo,
 }
 
 impl ApplicationInfo {
