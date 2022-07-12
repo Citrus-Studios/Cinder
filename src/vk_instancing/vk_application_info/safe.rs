@@ -15,7 +15,7 @@ use tracing::debug;
 
 use crate::functions::make_api_version;
 
-use super::raw::ApplicationInfo;
+use super::r#final::ApplicationInfo;
 
 /// Safe Wrapper for Application Info to prevent unsafe headaches.
 #[derive(Debug, Clone, PartialEq, Eq)]
