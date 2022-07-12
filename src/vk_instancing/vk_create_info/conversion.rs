@@ -41,7 +41,7 @@ impl<'a> Into<UnsafeCreateInfo> for SafeCreateInfo<'a> {
         UnsafeCreateInfo {
             application_info: &<UnsafeApplicationInfo as Into<VkApplicationInfo>>::into(
                 <SafeApplicationInfo as Into<UnsafeApplicationInfo>>::into(
-                    self.application_info.clone(),
+                    self.application_info.clone().normal,
                 ),
             ),
             enabled_layer_count: self.enabled_layer_count,
