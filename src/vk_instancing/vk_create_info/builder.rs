@@ -3,12 +3,13 @@ use tracing::debug;
 use crate::{
     helper::DefaultingValue,
     vk_instancing::{
-        vk_application_info::builder::ApplicationInfoBuilder, SafeApplicationInfo, SafeCreateInfo,
+        vk_application_info::{builder::ApplicationInfoBuilder, r#final::ApplicationInfo},
+        SafeCreateInfo,
     },
 };
 
 pub struct CreateInfoBuilder<'a> {
-    pub application_info: DefaultingValue<&'a SafeApplicationInfo>,
+    pub application_info: DefaultingValue<&'a ApplicationInfo>,
     pub layer_names: DefaultingValue<Vec<String>>,
     pub enabled_extension_names: DefaultingValue<Vec<String>>,
 }
@@ -19,7 +20,7 @@ impl<'a> CreateInfoBuilder<'a> {
     pub fn new() -> Self {
         #[cfg(any(feature = "medium-logging", feature = "heavy-logging"))]
         debug!("Created `CreateInfoBuilder`");
-        let x = ApplicationInfoBuilder::new().build();
+        let x = ApplicationInfoBuilder::new().build().finish();
         let x = &*Box::leak(Box::new(x));
         Self {
             application_info: DefaultingValue::Default(x),
@@ -28,7 +29,7 @@ impl<'a> CreateInfoBuilder<'a> {
         }
     }
     /// Changes the application info
-    pub fn with_application_info(mut self, application_info: &'a SafeApplicationInfo) -> Self {
+    pub fn with_application_info(mut self, application_info: &'a ApplicationInfo) -> Self {
         #[cfg(feature = "detailed-logging")]
         debug!("Adding Application Name `{:#?}`", application_info);
         #[cfg(feature = "logging")]

@@ -9,14 +9,14 @@
 
 use tracing::debug;
 
-use crate::vk_instancing::SafeApplicationInfo;
+use crate::vk_instancing::vk_application_info::r#final::ApplicationInfo;
 
 use super::builder::CreateInfoBuilder;
 
 /// A Safe Wrapper for Create Info
 #[derive(Debug, Clone)]
 pub struct SafeCreateInfo<'a> {
-    pub application_info: &'a SafeApplicationInfo,
+    pub application_info: &'a ApplicationInfo,
     pub enabled_layer_count: u32,
     pub layer_names: Vec<String>,
     pub enabled_extension_count: u32,
@@ -32,7 +32,7 @@ impl<'a> SafeCreateInfo<'a> {
     /// let application_info = SafeApplicationInfo::new_strings("Application Name", "Engine Name", "1.0.0", "1.0.0", "0.1.0.0");
     /// let create_info = SafeCreateInfo::auto_new(&application_info);
     /// ```
-    pub fn auto_new(application_info: &'a SafeApplicationInfo) -> Self {
+    pub fn auto_new(application_info: &'a ApplicationInfo) -> Self {
         CreateInfoBuilder::new()
             .with_application_info(application_info)
             .build()
@@ -47,7 +47,7 @@ impl<'a> SafeCreateInfo<'a> {
     /// let create_info = SafeCreateInfo::new_from(&application_info);
     /// ```
     pub fn new_from(
-        application_info: &'a SafeApplicationInfo,
+        application_info: &'a ApplicationInfo,
         enabled_layer_count: u32,
         layer_names: Vec<String>,
         enabled_extension_count: u32,
