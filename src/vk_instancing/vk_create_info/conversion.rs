@@ -5,7 +5,9 @@ use tracing::debug;
 
 use crate::{
     structure_type::StructureType,
-    vk_instancing::{SafeApplicationInfo, SafeCreateInfo, UnsafeApplicationInfo, UnsafeCreateInfo},
+    vk_instancing::{
+        CreateInfo, SafeApplicationInfo, SafeCreateInfo, UnsafeApplicationInfo, UnsafeCreateInfo,
+    },
 };
 
 impl<'a> Into<UnsafeCreateInfo> for SafeCreateInfo<'a> {
@@ -63,5 +65,11 @@ impl Into<VkInstanceCreateInfo> for UnsafeCreateInfo {
             enabledExtensionCount: self.enabled_extension_count,
             ppEnabledExtensionNames: self.enabled_extension_names as *const *const i8,
         }
+    }
+}
+
+impl<'a> Into<VkInstanceCreateInfo> for CreateInfo<'a> {
+    fn into(self) -> VkInstanceCreateInfo {
+        self.raw
     }
 }
