@@ -15,7 +15,7 @@ fn setup_logging() {
 #[tokio::test]
 async fn logging_test() {
     setup_logging();
-    let application_info = ApplicationInfoBuilder::new().build();
+    let application_info = ApplicationInfoBuilder::new().build().finish();
     let _create_info = CreateInfoBuilder::new()
         .with_application_info(&application_info)
         .build();
@@ -27,10 +27,21 @@ async fn raw_conversion_test() {
     let application_info = ApplicationInfoBuilder::new().build();
     let unsafe_application_info: UnsafeApplicationInfo = application_info.clone().into();
     let _raw_application_info: VkApplicationInfo = unsafe_application_info.into();
+    let application_info_finished = application_info.finish();
 
     let create_info = CreateInfoBuilder::new()
-        .with_application_info(&application_info)
+        .with_application_info(&application_info_finished)
         .build();
     let unsafe_create_info: UnsafeCreateInfo = create_info.clone().into();
     let _raw_create_info: VkInstanceCreateInfo = unsafe_create_info.into();
+}
+
+#[tokio::test]
+async fn fundamental_struct_test() {
+    setup_logging();
+    let application_info = ApplicationInfoBuilder::new().build().finish();
+    let _create_info = CreateInfoBuilder::new()
+        .with_application_info(&application_info)
+        .build()
+        .finish();
 }
