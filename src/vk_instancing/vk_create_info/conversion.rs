@@ -70,6 +70,8 @@ impl Into<VkInstanceCreateInfo> for UnsafeCreateInfo {
 
 impl<'a> Into<VkInstanceCreateInfo> for CreateInfo<'a> {
     fn into(self) -> VkInstanceCreateInfo {
+        #[cfg(feature = "detailed-logging")]
+        debug!("Converting `CreateInfo` into `VkInstanceCreateInfo`");
         self.raw
     }
 }
