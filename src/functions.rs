@@ -5,6 +5,7 @@ use std::{
 
 use mira::vulkan::VkInstance;
 
+use crate::match_error_codes::MatchErrorCode;
 #[allow(unused_imports)]
 use crate::unsafe_functions::*;
 use crate::vk_instancing::CreateInfo;
