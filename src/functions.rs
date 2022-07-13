@@ -3,7 +3,7 @@ use std::{
     ptr::{null, null_mut},
 };
 
-use mira::vulkan::VkInstance;
+use mira::vulkan::{VkInstance, VK_SUCCESS};
 
 use crate::match_error_codes::MatchErrorCode;
 #[allow(unused_imports)]
