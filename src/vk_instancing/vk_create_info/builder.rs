@@ -3,8 +3,7 @@ use tracing::debug;
 use crate::{
     helper::DefaultingValue,
     vk_instancing::{
-        vk_application_info::{builder::ApplicationInfoBuilder, r#final::ApplicationInfo},
-        SafeCreateInfo,
+        vk_application_info::builder::ApplicationInfoBuilder, ApplicationInfo, SafeCreateInfo,
     },
 };
 

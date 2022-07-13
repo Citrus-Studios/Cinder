@@ -9,9 +9,9 @@
 
 use tracing::debug;
 
-use crate::vk_instancing::vk_application_info::r#final::ApplicationInfo;
+use crate::vk_instancing::ApplicationInfo;
 
-use super::builder::CreateInfoBuilder;
+use super::{builder::CreateInfoBuilder, r#final::CreateInfo};
 
 /// A Safe Wrapper for Create Info
 #[derive(Debug, Clone)]
@@ -71,5 +71,8 @@ impl<'a> SafeCreateInfo<'a> {
             enabled_extension_count,
             enabled_extension_names,
         }
+    }
+    pub fn finish(self) -> CreateInfo<'a> {
+        CreateInfo::new(self)
     }
 }

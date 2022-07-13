@@ -5,10 +5,7 @@ use tracing::debug;
 
 use crate::{
     structure_type::StructureType,
-    vk_instancing::{
-        vk_application_info::r#unsafe::UnsafeApplicationInfo, SafeApplicationInfo, SafeCreateInfo,
-        UnsafeCreateInfo,
-    },
+    vk_instancing::{SafeApplicationInfo, SafeCreateInfo, UnsafeApplicationInfo, UnsafeCreateInfo},
 };
 
 impl<'a> Into<UnsafeCreateInfo> for SafeCreateInfo<'a> {

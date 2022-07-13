@@ -3,9 +3,10 @@ use std::ffi::CString;
 use mira::vulkan::VkApplicationInfo;
 use tracing::debug;
 
-use crate::{structure_type::StructureType, vk_instancing::SafeApplicationInfo};
-
-use super::{r#final::ApplicationInfo, r#unsafe::UnsafeApplicationInfo};
+use crate::{
+    structure_type::StructureType,
+    vk_instancing::{ApplicationInfo, SafeApplicationInfo, UnsafeApplicationInfo},
+};
 
 impl Into<UnsafeApplicationInfo> for SafeApplicationInfo {
     fn into(self) -> UnsafeApplicationInfo {
