@@ -6,7 +6,7 @@ pub struct UnsafeInstance<'a> {
 }
 
 impl<'a> UnsafeInstance<'a> {
-    pub fn new(create_info: CreateInfo<'a>) -> Self {
+    pub unsafe fn new(create_info: CreateInfo<'a>) -> Self {
         Self {
             create_info,
             allocator: std::ptr::null(),
