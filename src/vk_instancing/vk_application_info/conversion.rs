@@ -71,3 +71,13 @@ impl Into<SafeApplicationInfo> for UnsafeApplicationInfo {
         )
     }
 }
+
+impl Into<ApplicationInfo> for UnsafeApplicationInfo {
+    fn into(self) -> ApplicationInfo {
+        #[cfg(feature = "detailed-logging")]
+        debug!("Converting `UnsafeApplicationInfo` into `ApplicationInfo`");
+        let application_info: SafeApplicationInfo = self.into();
+
+        application_info.into()
+    }
+}
