@@ -47,6 +47,8 @@ impl Into<VkApplicationInfo> for UnsafeApplicationInfo {
 
 impl Into<ApplicationInfo> for SafeApplicationInfo {
     fn into(self) -> ApplicationInfo {
+        #[cfg(feature = "detailed-logging")]
+        debug!("Converting `SafeApplicationInfo` into `ApplicationInfo`");
         ApplicationInfo::new(self)
     }
 }
