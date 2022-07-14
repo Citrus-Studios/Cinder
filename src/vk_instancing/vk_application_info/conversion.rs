@@ -1,4 +1,4 @@
-use std::ffi::CString;
+use std::ffi::{CStr, CString};
 
 use mira::vulkan::VkApplicationInfo;
 use tracing::debug;
@@ -48,5 +48,24 @@ impl Into<VkApplicationInfo> for UnsafeApplicationInfo {
 impl Into<ApplicationInfo> for SafeApplicationInfo {
     fn into(self) -> ApplicationInfo {
         ApplicationInfo::new(self)
+    }
+}
+
+impl Into<SafeApplicationInfo> for UnsafeApplicationInfo {
+    fn into(self) -> SafeApplicationInfo {
+        #[cfg(feature = "detailed-logging")]
+        debug!("Converting `UnsafeApplicationInfo` into `SafeApplicationInfo`");
+        let application_name = unsafe { CStr::from_ptr(self.application_name as *const i8) };
+        let application_name = application_name.to_str().unwrap();
+        let engine_name = unsafe { CStr::from_ptr(self.engine_name as *const i8) };
+        let engine_name = engine_name.to_str().unwrap();
+
+        SafeApplicationInfo::new(
+            application_name,
+            engine_name,
+            self.application_version,
+            self.engine_version,
+            self.api_version,
+        )
     }
 }
