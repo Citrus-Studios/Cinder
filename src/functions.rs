@@ -34,7 +34,7 @@ pub(crate) fn create_instance(
                 None => null(),
             },
             match allocator {
-                Some(allocator) => null_mut(),
+                Some(_allocator) => null_mut(),
                 None => null_mut(),
             },
             &mut instance,
