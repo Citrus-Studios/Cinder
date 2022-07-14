@@ -1,7 +1,7 @@
 use mira::vulkan::VkInstance;
 use tracing::debug;
 
-use crate::vk_instancing::SafeInstance;
+use crate::{functions::create_instance, vk_instancing::SafeInstance};
 
 use super::r#unsafe::UnsafeInstance;
 
@@ -13,5 +13,11 @@ impl<'a> Into<UnsafeInstance<'a>> for SafeInstance<'a> {
             create_info: self.create_info,
             allocator: std::ptr::null(),
         }
+    }
+}
+
+impl<'a> Into<VkInstance> for UnsafeInstance<'a> {
+    fn into(self) -> VkInstance {
+        create_instance(Some(self.create_info), None).unwrap()
     }
 }
