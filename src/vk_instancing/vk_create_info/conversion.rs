@@ -82,3 +82,9 @@ impl<'a> Into<CreateInfo<'a>> for UnsafeCreateInfo {
         safe.into()
     }
 }
+
+impl<'a> Into<CreateInfo<'a>> for SafeCreateInfo<'a> {
+    fn into(self) -> CreateInfo<'a> {
+        CreateInfo::new(self)
+    }
+}
