@@ -75,3 +75,10 @@ impl<'a> Into<VkInstanceCreateInfo> for CreateInfo<'a> {
         self.raw
     }
 }
+
+impl<'a> Into<CreateInfo<'a>> for UnsafeCreateInfo {
+    fn into(self) -> CreateInfo<'a> {
+        let safe: SafeApplicationInfo = self.into();
+        safe.into()
+    }
+}
