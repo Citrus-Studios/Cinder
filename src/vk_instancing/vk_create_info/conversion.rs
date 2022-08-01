@@ -91,8 +91,18 @@ impl<'a> Into<CreateInfo<'a>> for SafeCreateInfo<'a> {
 
 impl<'a> Into<SafeCreateInfo<'a>> for UnsafeCreateInfo {
     fn into(self) -> SafeCreateInfo<'a> {
-        let application_info: SafeApplicationInfo = *self.application_info;
+        <UnsafeCreateInfo as Into<CreateInfo>>::into(self).into()
+    }
+}
 
-        SafeCreateInfo::<'a>::new_from()
+impl<'a> Into<UnsafeCreateInfo> for CreateInfo<'a> {
+    fn into(self) -> UnsafeCreateInfo {
+        self.normal.into()
+    }
+}
+
+impl<'a> Into<SafeCreateInfo<'a>> for CreateInfo<'a> {
+    fn into(self) -> SafeCreateInfo<'a> {
+        self.normal
     }
 }
