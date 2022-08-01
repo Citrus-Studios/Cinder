@@ -82,8 +82,20 @@ impl Into<ApplicationInfo> for UnsafeApplicationInfo {
     }
 }
 
-impl Into<ApplicationInfo> for VkApplicationInfo {
+impl Into<VkApplicationInfo> for ApplicationInfo {
     fn into(self) -> VkApplicationInfo {
         self.raw
+    }
+}
+
+impl Into<UnsafeApplicationInfo> for ApplicationInfo {
+    fn into(self) -> UnsafeApplicationInfo {
+        todo!();
+    }
+}
+
+impl Into<SafeApplicationInfo> for ApplicationInfo {
+    fn into(self) -> SafeApplicationInfo {
+        todo!()
     }
 }
