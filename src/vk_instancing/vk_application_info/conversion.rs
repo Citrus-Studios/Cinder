@@ -90,12 +90,12 @@ impl Into<VkApplicationInfo> for ApplicationInfo {
 
 impl Into<UnsafeApplicationInfo> for ApplicationInfo {
     fn into(self) -> UnsafeApplicationInfo {
-        todo!();
+        self.normal.into()
     }
 }
 
 impl Into<SafeApplicationInfo> for ApplicationInfo {
     fn into(self) -> SafeApplicationInfo {
-        todo!()
+        self.normal
     }
 }
