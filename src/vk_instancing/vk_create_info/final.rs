@@ -2,6 +2,7 @@ use mira::vulkan::VkInstanceCreateInfo;
 
 use crate::vk_instancing::{SafeCreateInfo, UnsafeCreateInfo};
 
+#[derive(Clone)]
 pub struct CreateInfo<'a> {
     pub raw: VkInstanceCreateInfo,
     pub normal: SafeCreateInfo<'a>,
